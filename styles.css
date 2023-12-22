@@ -280,7 +280,6 @@ body {
 }
 
 #info-blob>div {
-    padding-right: 50px;
     opacity: 95%;
 }
 
@@ -671,4 +670,13 @@ header img {
         1px -1px 0 blue,
         -1px 1px 0 blue,
         1px 1px 0 blue;
+}
+
+/* Media Queries */
+
+@media screen and (max-width: 950px) {
+    header img {
+        width: 341px;
+        height: 214px;
+    }
 }
