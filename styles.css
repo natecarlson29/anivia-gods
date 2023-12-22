@@ -690,6 +690,17 @@ header img {
         margin-right: 100px;
     }
 
+    .hidden {
+        opacity: 0 !important;
+        width: 207px !important;
+        height: 207px !important;
+    }
+
+    #blizzard.hidden {
+        margin-top: 40px !important;
+        margin-right: 20px !important
+    }
+
     .header h1 {
         font-size: 2rem;
         margin-right: -250px;
@@ -704,7 +715,23 @@ header img {
         flex-direction: row;
     }
 
+    #info-blob .riot-tag {
+        margin-left: 0px;
+    }
+
+    #info-blob div img {
+        margin-top: 15px;
+    }
+
     #info-blob svg {
         margin-bottom: 20px;
+    }
+
+    #info-blob.collapsed div img {
+        margin-top: 0px;
+    }
+
+    #info-blob.collapsed svg {
+        margin-bottom: 0px;
     }
 }
