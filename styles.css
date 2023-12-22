@@ -1,0 +1,674 @@
+@import url('https://fonts.googleapis.com/css2?family=Dhurjati:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+body {
+    background-color: #181818;
+    font-family: 'Roboto', sans-serif;
+    overflow-x: hidden;
+}
+
+#players-list {
+    /* background-color: #31313c;
+    color: white;
+    margin: 5px 2px;
+    padding: 5px; */
+    max-width: 1250px;
+    margin: auto;
+}
+
+#players-list>div {
+    justify-content: space-between;
+    align-items: center;
+}
+
+.bottom-right-text {
+    font-size: .8rem;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin: 0;
+    color: lightgrey;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+#blizzard {
+    opacity: .3;
+    width: 614px;
+    height: 614px;
+    animation: spin 10s linear infinite;
+    position: absolute;
+    margin-right: 400px;
+    margin-top: 75px;
+    z-index: 0;
+    transition: width .5s, height .5s, opacity .2s, margin-top .5s, margin-right .5s;
+}
+
+.hidden {
+    opacity: 0 !important;
+    width: 307px !important;
+    height: 307px !important;
+}
+
+#blizzard.hidden {
+    margin-top: 150px !important;
+    margin-right: 100px !important
+}
+
+.skill-letterQ,
+.skill-letterW,
+.skill-letterE,
+.skill-letterR {
+    background-color: #1a1a1a;
+    padding: 5px;
+    margin: 3px;
+    /* font-size: 1.2rem; */
+    font-weight: bold;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    border-radius: 3px;
+}
+
+.skill-letterQ {
+    color: rgb(56, 93, 255);
+}
+
+.skill-letterW {
+    color: rgb(17, 255, 88);
+}
+
+.skill-letterE {
+    color: rgb(255, 102, 13);
+}
+
+.skill-letterR {
+    color: rgb(0, 0, 0);
+    background-color: cyan;
+}
+
+.summoner-spells {
+    gap: 3px;
+}
+
+#players-list .summoner-spells img {
+    width: 40px;
+    height: 40px;
+    border: 1px solid black;
+}
+
+#players-list .dropdown-info {
+    transition: transform, opacity 3s ease-out;
+    align-items: baseline;
+    display: none;
+    transform: translateY(-100px);
+    opacity: 0%;
+}
+
+#players-list .dropdown-info-active {
+    transition: transform, opacity 33s ease-in;
+    display: flex;
+    transform: translateY(4px);
+    opacity: 100%;
+}
+
+.item-timeline-item {
+    margin-right: 10px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    background-color: #1a1a1a;
+    padding: 3px;
+    border-radius: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: default;
+}
+
+.item-timeline-item img {
+    margin: 2px;
+}
+
+.item-timeline-time {
+    text-align: center;
+}
+
+.dropdown-title {
+    background-color: #1a1a1a;
+    padding: 3px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 10px;
+    border-radius: 3px;
+    font-weight: bold;
+}
+
+.dropdown-info {
+    background-color: #31313c;
+    color: #ffffff;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: -12px;
+    padding: 5px;
+    z-index: 2;
+    margin-bottom: 50px;
+    border: 1px solid #3498db;
+}
+
+.dropdown-info>div {
+    margin: 10px;
+    padding: 5px;
+    background-color: #272727;
+    border-radius: 3px;
+}
+
+.summoner-card {
+    position: relative;
+    background-color: #31313c;
+    color: #ffffff;
+    margin: 10px;
+    padding: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+    border: 2px solid #3a3a3a;
+    border-radius: 10px;
+}
+
+.show-collapsed {
+    display: none;
+}
+
+#info-blob.collapsed .show-collapsed {
+    display: block;
+}
+
+#info-blob.collapsed:hover .show-collapsed svg path {
+    fill: cyan;
+    opacity: 100%;
+}
+
+#info-blob.collapsed {
+    width: 90%;
+    justify-content: space-between;
+    opacity: 95%;
+    padding: 5px;
+}
+
+#info-blob.collapsed:hover {
+    cursor: pointer;
+    background-color: #31313c;
+}
+
+#info-blob.collapsed .hide-collapsed {
+    display: none;
+}
+
+#info-blob.collapsed svg,
+#info-blob.collapsed div img {
+    opacity: .7;
+    margin-right: 40px;
+    margin-left: 15px;
+    height: 48px;
+    width: 48px;
+    min-height: 48px;
+    min-width: 48px;
+}
+
+#info-blob .x {
+    position: absolute;
+    top: 10px;
+    right: 0px;
+    height: 50px;
+    width: 50px;
+    min-height: 50px;
+    min-width: 50px;
+    opacity: 100%;
+}
+
+.x:hover {
+    cursor: pointer;
+}
+
+.x:hover circle,
+.x:hover path {
+    stroke: cyan;
+}
+
+#info-blob {
+    position: relative;
+    width: 70%;
+    margin: auto;
+    background-color: #272727;
+    border: 2px solid #3a3a3a;
+    color: white;
+    z-index: 5;
+    padding: 20px;
+    border-radius: 30px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    opacity: 70%;
+    transition: width .2s, opacity .2s;
+}
+
+#info-blob:hover {
+    opacity: 95%;
+}
+
+#info-blob .riot-tag {
+    margin-left: 20px;
+}
+
+#info-blob svg,
+#info-blob div img {
+    opacity: .75;
+    margin-right: 40px;
+    margin-left: 15px;
+    height: 96px;
+    width: 96px;
+    min-height: 96px;
+    min-width: 96px;
+}
+
+#info-blob>div {
+    padding-right: 50px;
+    opacity: 95%;
+}
+
+#info-blob a {
+    color: rgb(14, 233, 233);
+}
+
+.summoner-card-active .side-arrow {
+    transform: rotate(90deg);
+    fill: #3498db;
+}
+
+.summoner-card-active {
+    transform: scale(1.05);
+    border-color: #3498db;
+    cursor: default;
+}
+
+.summoner-card:hover,
+.tooltiptext {
+    /* background-color: #282830; */
+    transform: scale(1.05);
+    z-index: 5;
+    border-color: #3498db;
+    cursor: default;
+}
+
+.summoner-card:hover .side-arrow {
+    fill: #3498db;
+}
+
+.summoner-card img {
+    user-select: none;
+}
+
+.side-arrow {
+    transition: transform 0.2s ease-in-out;
+}
+
+.side-arrow:hover {
+    cursor: pointer;
+}
+
+#players-list>.flex-column>.flex-row {
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+#players-list img {
+    height: 30px;
+    width: 30px;
+}
+
+#players-list .med-img {
+    height: 64px;
+    width: 64px;
+}
+
+#players-list .large-img {
+    height: 96px;
+    width: 96px;
+    margin-bottom: -28px;
+    margin-top: -12px;
+}
+
+.runes {
+    width: 190px;
+}
+
+.items {
+    width: 165px;
+    flex-wrap: wrap;
+}
+
+#players-list .main-rune img {
+    height: 50px !important;
+    width: 50px !important;
+}
+
+#players-list .item-img img {
+    height: 40px;
+    width: 40px;
+    margin: 2px 5px;
+    border: 1px solid black;
+}
+
+#players-list .item-timeline-item .item-img img {
+    height: 32px;
+    width: 32px;
+}
+
+#players-list .img-container img {
+    height: 50px;
+    width: 50px;
+    border: 1px solid black;
+}
+
+#players-list .stat-mod img {
+    height: 20px !important;
+    width: 20px !important;
+    margin: 0;
+}
+
+.med-img {
+    height: 64px;
+    width: 64px;
+}
+
+.summoner-name {
+    font-weight: bold;
+    font-size: 1.4rem;
+    margin-left: 10px;
+    width: 210px;
+    z-index: 2;
+    white-space: nowrap;
+    text-shadow: -1px -1px 0 black,
+        1px -1px 0 black,
+        -1px 1px 0 black,
+        1px 1px 0 black;
+}
+
+.summoner-region {
+    font-weight: bold;
+    font-size: 1.1rem;
+    z-index: 2;
+    white-space: nowrap;
+    color: rgb(150, 150, 150);
+    text-shadow: -1px -1px 0 black,
+        1px -1px 0 black,
+        -1px 1px 0 black,
+        1px 1px 0 black;
+    margin-left: 10px;
+}
+
+.tier {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    font-size: 1.3rem;
+    text-shadow: -1px -1px 0 black,
+        1px -1px 0 black,
+        -1px 1px 0 black,
+        1px 1px 0 black;
+}
+
+.riot-tag {
+    color: cyan;
+}
+
+.full-height {
+    height: 100%;
+}
+
+.skill {
+    color: black;
+    font-weight: bold;
+    font-size: 1.8rem;
+    text-shadow: -1px -1px 0 rgb(255, 255, 37),
+        1px -1px 0 rgb(255, 255, 37),
+        -1px 1px 0 rgb(255, 255, 37),
+        1px 1px 0 rgb(255, 255, 37);
+    z-index: 2;
+    position: absolute;
+    top: 70%;
+    left: 70%;
+    /* top: 50%;
+    left: 50%; */
+    transform: translate(-50%, -50%);
+}
+
+.row-1 {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+#lane img {
+    margin: 12px;
+}
+
+#lane {
+    font-weight: bold;
+    font-size: 2rem;
+}
+
+.dropdown-arrow {
+    width: 150px;
+    height: 80px;
+    text-align: center;
+    background-color: black;
+    color: white;
+    font-size: 4rem;
+}
+
+.dropdown-arrow:hover {
+    background-color: grey;
+}
+
+#timeline-row {
+    display: none;
+}
+
+.timeline-item img {
+    width: 32px;
+    height: 32px;
+}
+
+#items img {
+    height: 80px;
+    width: 80px;
+    margin: 2px 8px;
+}
+
+#skill-order img {
+    height: 50px;
+    width: 50px;
+    border: 2px solid black;
+}
+
+.img-container {
+    position: relative;
+    display: inline-block;
+}
+
+.game {
+    background-color: #202124;
+    color: #e8eaed;
+    width: 1000px;
+}
+
+.game>div {
+    border: 1px solid rgb(255, 255, 37);
+}
+
+.timeline-skills {
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+.timeline-item {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+#text {
+    margin-top: 25px;
+}
+
+.rune-img {
+    height: 50px;
+    width: 50px;
+    background-color: black;
+    border-radius: 15px;
+    margin: 2px
+}
+
+.rune-page {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    user-select: none;
+}
+
+.rune-page>div {
+    display: flex;
+}
+
+#items {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+}
+
+.row-2 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+}
+
+.rune-title {
+    color: rgb(255, 255, 37);
+    font-size: 1.3rem;
+    font-weight: bold;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.main-rune .rune-img {
+    height: 105px !important;
+    width: 105px !important;
+}
+
+.stat-mod .rune-img {
+    height: 30px !important;
+    width: 30px !important;
+}
+
+.tooltiptext {
+    visibility: hidden;
+    width: 200px;
+    background-color: black;
+    color: white;
+    text-align: center;
+    border-radius: 6px;
+    padding: 10px 20px;
+    position: absolute;
+    z-index: 6;
+    font-size: 1rem;
+    margin-top: 5px;
+}
+
+.rune:hover .tooltiptext,
+.item-img:hover .tooltiptext,
+.summoner-spell:hover .tooltiptext {
+    visibility: visible;
+}
+
+.rune .tooltiptext:hover,
+.item-img .tooltiptext:hover,
+.summoner-spell .tooltiptext:hover {
+    visibility: hidden;
+}
+
+.rune:hover:not(.tooltiptext)+.tooltiptext,
+.item-img.rune:hover:not(.tooltiptext) {
+    visibility: hidden;
+}
+
+@keyframes animatedBackground {
+    0% {
+        background-position: 0 0;
+    }
+
+    100% {
+        background-position: 0px 600px;
+    }
+}
+
+.header {
+    padding: 0px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    margin-top: 30px;
+    width: 100%;
+    height: 100%;
+    user-select: none;
+}
+
+header {
+    height: 405px;
+    user-select: none;
+}
+
+header img {
+    width: 683px;
+    height: 427px;
+}
+
+.header h1 {
+    font-family: 'Dhurjati', sans-serif;
+    color: rgb(14, 233, 233);
+    box-shadow: #333;
+    margin: 0px;
+    font-size: 4rem;
+    margin-right: -300px;
+    margin-top: 300px;
+    z-index: 2;
+    text-shadow:
+        -1px -1px 0 blue,
+        1px -1px 0 blue,
+        -1px 1px 0 blue,
+        1px 1px 0 blue;
+}
