@@ -654,12 +654,12 @@ header {
 header img {
     width: 683px;
     height: 427px;
+    transition: height .5s, width .5s;
 }
 
 .header h1 {
     font-family: 'Dhurjati', sans-serif;
     color: rgb(14, 233, 233);
-    box-shadow: #333;
     margin: 0px;
     font-size: 4rem;
     margin-right: -300px;
@@ -675,8 +675,36 @@ header img {
 /* Media Queries */
 
 @media screen and (max-width: 950px) {
+    header {
+        height: 285px;
+    }
+
     header img {
         width: 341px;
         height: 214px;
+    }
+
+    #blizzard {
+        width: 307px;
+        height: 307px;
+        margin-right: 100px;
+    }
+
+    .header h1 {
+        font-size: 2rem;
+        margin-right: -250px;
+        margin-top: 200px;
+    }
+
+    #info-blob {
+        flex-direction: column;
+    }
+
+    #info-blob.collapsed {
+        flex-direction: row;
+    }
+
+    #info-blob svg {
+        margin-bottom: 20px;
     }
 }
