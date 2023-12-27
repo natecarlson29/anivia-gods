@@ -733,4 +733,8 @@ header img {
     #info-blob.collapsed svg {
         margin-bottom: 0px;
     }
+
+    .summoner-card {
+        flex-wrap: wrap;
+    }
 }
