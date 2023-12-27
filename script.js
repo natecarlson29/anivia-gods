@@ -17,9 +17,9 @@ function expandBlob(e) {
     }
 }
 
-function profPicError(e) {
-    e.src = 'img/profileIcon/0.png';
-}
+// function profPicError(e) {
+//     e.src = 'img/profileIcon/0.png';
+// }
 
 function toggleItems() {
     var timelineElement = document.getElementById('timeline-row');
