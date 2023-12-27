@@ -205,7 +205,6 @@ body {
 
 #info-blob.collapsed:hover {
     cursor: pointer;
-    background-color: #31313c;
 }
 
 #info-blob.collapsed .hide-collapsed {

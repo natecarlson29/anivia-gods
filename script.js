@@ -467,7 +467,7 @@ function createPlayerList(summoners) {
 }
 
 function fetchSummoners() {
-    const apiUrl = 'http://localhost:3000/summoners';
+    const apiUrl = 'https://getsummoners.azurewebsites.net/api/HttpTrigger1?code=pwBP6CP0m7dXL-Jr5z355I0O9XN3mHvsTy3MJUiMwXvwAzFu8PeHcw==';
     fetch(apiUrl)
         .then(response => response.json())
         .then(data => {
