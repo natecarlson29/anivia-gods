@@ -319,7 +319,7 @@ function createPlayerList(summoners) {
         summonerListHtml += '<svg class="side-arrow" fill="#000000" width="64px" height="64px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M15.146 12.354l-5.792 5.792a.5.5 0 01-.854-.353V6.207a.5.5 0 01.854-.353l5.792 5.792a.5.5 0 010 .708z"/></svg>';
 
         /* Profile Image */
-        summonerListHtml += '<img onerror="profPicError(this)" class="med-img" src="img/profileIcon/' + summoner.profileIconId + '.png"/>';
+        summonerListHtml += '<img class="med-img" src="img/profileIcon/' + summoner.profileIconId + '.png"/>';
 
         /* MatchId */
         // summonerListHtml += '<p class="bottom-right-text">' + summoner.matchId + '</p>';
