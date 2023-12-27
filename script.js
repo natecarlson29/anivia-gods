@@ -285,7 +285,7 @@ function dropdownCard(clickedCard) {
         dropdownContent.style.display = 'none';
     }
     dropdownContent.classList.toggle('dropdown-info-active');
-
+    dropdownContent.scrollIntoView();
 }
 
 
