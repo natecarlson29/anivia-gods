@@ -734,12 +734,15 @@ header img {
         margin-bottom: 0px;
     }
 
-    #player-list>div {
+    #players-list>div {
         justify-content: space-around;
+    }
+
+    .summoner-card {
         flex-wrap: wrap;
     }
 
-    .summoner-card div {
+    .summoner-card>div {
         border: 1px solid #181818;
         margin: 3px;
     }
