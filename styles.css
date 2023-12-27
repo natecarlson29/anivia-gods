@@ -673,7 +673,7 @@ header img {
 
 /* Media Queries */
 
-@media screen and (max-width: 950px) {
+@media screen and (max-width: 805px) {
     header {
         height: 285px;
     }
