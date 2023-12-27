@@ -808,4 +808,9 @@ header img {
         height: 60px !important;
         width: 60px !important;
     }
+
+    #players-list .item-timeline-item .item-img img {
+        height: 24px;
+        width: 24px;
+    }
 }
