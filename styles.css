@@ -734,7 +734,21 @@ header img {
         margin-bottom: 0px;
     }
 
-    .summoner-card {
+    #player-list>div {
+        justify-content: space-around;
         flex-wrap: wrap;
+    }
+
+    .summoner-card div {
+        border: 1px solid #181818;
+        margin: 3px;
+    }
+
+    .summoner-name {
+        font-size: 1.2rem;
+    }
+
+    .tier {
+        font-size: 1rem;
     }
 }
