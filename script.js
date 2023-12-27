@@ -335,8 +335,6 @@ function createPlayerList(summoners) {
         summonerListHtml += '<div class="flex-column summoner-spells">';
         let summoner1 = summonerSpells.find(x => x.id == summoner.summoner1Id);
         let summoner2 = summonerSpells.find(x => x.id == summoner.summoner2Id);
-        console.log({ Summoner1: summoner1 });
-        console.log({ Summoner2: summoner2 });
         if (summoner1 && summoner2) {
             summonerListHtml += '<div class="summoner-spell"><img src="' + summoner1.iconPath.slice(1) + '"/>';
             summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + summoner1.name + '</span><hr/>' + summoner1.description + '</div></div>';
