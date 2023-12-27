@@ -788,4 +788,18 @@ header img {
     .dropdown-info {
         flex-direction: column;
     }
+
+    .tooltiptext {
+        width: 100px;
+        border-radius: 3px;
+        padding: 5px 10px;
+        position: absolute;
+        z-index: 6;
+        font-size: 1rem;
+        margin-top: 5px;
+    }
+
+    .rune-title {
+        font-size: 1.1rem;
+    }
 }
