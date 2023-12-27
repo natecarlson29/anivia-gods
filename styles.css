@@ -750,6 +750,7 @@ header img {
     .summoner-card .items,
     .summoner-card .rune {
         background-color: #1a1a1a;
+        border-radius: 3px;
     }
 
     .summoner-name {
@@ -777,5 +778,9 @@ header img {
 
     .items {
         width: 112px;
+    }
+
+    .runes {
+        width: 165px
     }
 }
