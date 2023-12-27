@@ -775,6 +775,7 @@ header img {
     #players-list .item-img img {
         height: 25px;
         width: 25px;
+        border: 2px solid #3a3a3a;
     }
 
     .items {
@@ -782,7 +783,7 @@ header img {
     }
 
     .runes {
-        width: 165px
+        width: 175px
     }
 
     .dropdown-info {
@@ -801,5 +802,10 @@ header img {
 
     .rune-title {
         font-size: 1.1rem;
+    }
+
+    #players-list .main-rune img {
+        height: 60px !important;
+        width: 60px !important;
     }
 }
