@@ -743,8 +743,13 @@ header img {
     }
 
     .summoner-card>div {
-        border: 1px solid #181818;
+        /* border: 1px solid #181818; */
         margin: 3px;
+    }
+
+    .summoner-card .items,
+    .summoner-card .rune {
+        background-color: #1a1a1a;
     }
 
     .summoner-name {
@@ -753,5 +758,24 @@ header img {
 
     .tier {
         font-size: 1rem;
+    }
+
+    #players-list .summoner-spells img {
+        width: 25px;
+        height: 25px;
+    }
+
+    #players-list img {
+        height: 25px;
+        width: 25px;
+    }
+
+    #players-list .item-img img {
+        height: 25px;
+        width: 25px;
+    }
+
+    .items {
+        width: 112px;
     }
 }
