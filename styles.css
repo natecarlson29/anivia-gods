@@ -783,4 +783,8 @@ header img {
     .runes {
         width: 165px
     }
+
+    .dropdown-info {
+        flex-direction: column;
+    }
 }
