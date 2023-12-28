@@ -804,6 +804,7 @@ header img {
         z-index: 6;
         font-size: 1rem;
         margin-top: 5px;
+        margin-left: -45px;
     }
 
     .rune-title {
@@ -819,6 +820,10 @@ header img {
     #players-list .item-timeline-item .item-img img {
         height: 24px;
         width: 24px;
+    }
+
+    #players-list {
+        overflow: hidden;
     }
 }
 
