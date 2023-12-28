@@ -789,7 +789,7 @@ header img {
     }
 
     .runes {
-        width: 180px
+        width: 190px
     }
 
     .dropdown-info {
@@ -819,5 +819,11 @@ header img {
     #players-list .item-timeline-item .item-img img {
         height: 24px;
         width: 24px;
+    }
+}
+
+@media screen and (max-width: 395px) {
+    .runes {
+        width: 180px
     }
 }
