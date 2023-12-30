@@ -671,6 +671,14 @@ header img {
         1px 1px 0 blue;
 }
 
+.wins {
+    color: rgb(14, 173, 0);
+}
+
+.losses {
+    color: rgb(173, 3, 3);
+}
+
 /* Media Queries */
 
 @media screen and (max-width: 896px) {
