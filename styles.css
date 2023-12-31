@@ -13,7 +13,7 @@ body {
     margin: 5px 2px;
     padding: 5px; */
     max-width: 1250px;
-    margin: 20px;
+    margin: auto;
 }
 
 #players-list>div {
