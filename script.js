@@ -326,7 +326,7 @@ function createPlayerList(summoners) {
 
         /* Summoner Name */
         summonerListHtml += '<div class="flex-column"><div class="summoner-name">' + summoner.summonerName + '<span class="riot-tag">#' + summoner.riotTag + '</span></div>';
-        summonerListHtml += '<div class="summoner-region">' + summoner.region + '<span class="wins">' + summoner.wins + '</span> - <span class="losses">' + summoner.losses + '</span></div></div></div>';
+        summonerListHtml += '<div class="summoner-region"><span class="wins">' + summoner.wins + '</span> - <span class="losses">' + summoner.losses + '</span><br/>' + summoner.region + '</div></div></div>';
 
         /* Rank */
         summonerListHtml += '<div class="tier"><img class="large-img" src="img/tier/' + summoner.tier + '.png"/>' + summoner.leaguePoints + ' LP</div>';

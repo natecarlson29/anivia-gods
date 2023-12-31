@@ -672,11 +672,11 @@ header img {
 }
 
 .wins {
-    color: rgb(14, 173, 0);
+    color: rgb(18, 211, 0);
 }
 
 .losses {
-    color: rgb(173, 3, 3);
+    color: rgb(226, 46, 46);
 }
 
 /* Media Queries */
