@@ -395,47 +395,12 @@ function createPlayerList(summoners) {
                 summonerListHtml += '</div>';
             }
         })
-
         summonerListHtml += '</div>';
         summonerListHtml += '</div>';
 
 
         /* Drop down section */
         summonerListHtml += '<div class="dropdown-info flex-row">';
-        summonerListHtml += '<div class="flex-row">';
-
-        /* Skills */
-        summonerListHtml += '<div class="timeline-item flex-row">';
-        summonerListHtml += '<div class="dropdown-title">Skill Order</div>';
-        summoner.skillEvents.forEach((levelUp, index) => {
-            if (index > 0) {
-                summonerListHtml += '&#8594;';
-            }
-            summonerListHtml += '<span class="skill-letter' + convertSkillSlot(levelUp.skillSlot) + '">' + convertSkillSlot(levelUp.skillSlot) + '</span>';
-        })
-        summonerListHtml += '</div>';
-        // testSkillOrder.forEach((skill, id) => {
-        //     summonerListHtml += '<div class="img-container"><span class="skill">' + skill + '</span><img src="img/spell/' + skill + '.png"/>' + (id == 2 ? '' : '<span class="full-height">&#8594;</span>') + '</div>';
-        // })
-
-
-        /* Runes - All */
-        /*try {
-            summonerListHtml += '<div class="rune-page">Primary';
-            let primaryRunes = runesJson.filter(x => x.iconPath.includes('Sorcery'));
-            console.log({ PrimaryRunes: primaryRunes });
-
-            primaryRunes.forEach(rune => {
-                let active = Math.random() <= .25 ? 'active' : '';
-                summonerListHtml += '<div class="rune"><img class="rune-img ' + active + '" src="img/' + rune.iconPath + '"/>';
-                summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + rune.name + '</span><hr/>' + rune.longDesc + '</div></div>';
-            })
-            summonerListHtml += '</div>';
-        } catch (error) {
-            summonerListHtml += '<div>No rune data</div></div>';
-        }*/
-        summonerListHtml += '</div>';
-
         /* All Runes */
         summonerListHtml += '<div class="flex-column">';
         summoner.allRunes.forEach(runeSet => {
@@ -477,6 +442,39 @@ function createPlayerList(summoners) {
                 summonerListHtml += '<div>No rune data</div></div>';
             }
         })
+        summonerListHtml += '<div class="flex-row">';
+
+        /* Skills */
+        summonerListHtml += '<div class="timeline-item flex-row">';
+        summonerListHtml += '<div class="dropdown-title">Skill Order</div>';
+        summoner.skillEvents.forEach((levelUp, index) => {
+            if (index > 0) {
+                summonerListHtml += '&#8594;';
+            }
+            summonerListHtml += '<span class="skill-letter' + convertSkillSlot(levelUp.skillSlot) + '">' + convertSkillSlot(levelUp.skillSlot) + '</span>';
+        })
+        summonerListHtml += '</div>';
+        // testSkillOrder.forEach((skill, id) => {
+        //     summonerListHtml += '<div class="img-container"><span class="skill">' + skill + '</span><img src="img/spell/' + skill + '.png"/>' + (id == 2 ? '' : '<span class="full-height">&#8594;</span>') + '</div>';
+        // })
+
+
+        /* Runes - All */
+        /*try {
+            summonerListHtml += '<div class="rune-page">Primary';
+            let primaryRunes = runesJson.filter(x => x.iconPath.includes('Sorcery'));
+            console.log({ PrimaryRunes: primaryRunes });
+
+            primaryRunes.forEach(rune => {
+                let active = Math.random() <= .25 ? 'active' : '';
+                summonerListHtml += '<div class="rune"><img class="rune-img ' + active + '" src="img/' + rune.iconPath + '"/>';
+                summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + rune.name + '</span><hr/>' + rune.longDesc + '</div></div>';
+            })
+            summonerListHtml += '</div>';
+        } catch (error) {
+            summonerListHtml += '<div>No rune data</div></div>';
+        }*/
+        summonerListHtml += '</div>';
 
 
         /* Items Timeline */
