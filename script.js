@@ -436,6 +436,49 @@ function createPlayerList(summoners) {
         }*/
         summonerListHtml += '</div>';
 
+        /* All Runes */
+        summonerListHtml += '<div class="flex-column">';
+        summoner.allRunes.forEach(runeSet => {
+            try {
+                /* Runes */
+                summonerListHtml += '<div class="flex-row runes">';
+
+                summonerListHtml += '<div class="rune main-rune"><img class="rune-img" src="' + runesJson.find(r => r.id == runeSet[0]).iconPath.slice(1) + '"/>';
+                summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + runesJson.find(r => r.id == runeSet[0]).name + '</span><hr/>' + runesJson.find(r => r.id == runeSet[0]).longDesc + '</div></div>';
+
+                summonerListHtml += '<div class="flex-column">'
+                summonerListHtml += '<div class="flex-row">'
+                summonerListHtml += '<div class="rune"><img class="rune-img" src="' + runesJson.find(r => r.id == runeSet[1]).iconPath.slice(1) + '"/>';
+                summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + runesJson.find(r => r.id == runeSet[1]).name + '</span><hr/>' + runesJson.find(r => r.id == runeSet[1]).longDesc + '</div></div>';
+                summonerListHtml += '<div class="rune"><img class="rune-img" src="' + runesJson.find(r => r.id == runeSet[2]).iconPath.slice(1) + '"/>';
+                summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + runesJson.find(r => r.id == runeSet[2]).name + '</span><hr/>' + runesJson.find(r => r.id == runeSet[2]).longDesc + '</div></div>';
+                summonerListHtml += '<div class="rune"><img class="rune-img" src="' + runesJson.find(r => r.id == runeSet[3]).iconPath.slice(1) + '"/>';
+                summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + runesJson.find(r => r.id == runeSet[3]).name + '</span><hr/>' + runesJson.find(r => r.id == runeSet[3]).longDesc + '</div></div>';
+                summonerListHtml += '</div>'
+
+                summonerListHtml += '<div class="flex-row">'
+                summonerListHtml += '<div class="rune"><img class="rune-img" src="' + runesJson.find(r => r.id == runeSet[4]).iconPath.slice(1) + '"/>';
+                summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + runesJson.find(r => r.id == runeSet[4]).name + '</span><hr/>' + runesJson.find(r => r.id == runeSet[4]).longDesc + '</div></div>';
+                summonerListHtml += '<div class="rune"><img class="rune-img" src="' + runesJson.find(r => r.id == runeSet[5]).iconPath.slice(1) + '"/>';
+                summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + runesJson.find(r => r.id == runeSet[5]).name + '</span><hr/>' + runesJson.find(r => r.id == runeSet[5]).longDesc + '</div></div>';
+                summonerListHtml += '</div>'
+                summonerListHtml += '</div>'
+
+                summonerListHtml += '<div class="flex-column">'
+                summonerListHtml += '<div class="rune stat-mod"><img class="rune-img" src="' + runesJson.find(r => r.id == runeSet[6]).iconPath.slice(1) + '"/>';
+                summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + runesJson.find(r => r.id == runeSet[6]).name + '</span><hr/>' + runesJson.find(r => r.id == runeSet[6]).longDesc + '</div></div>';
+                summonerListHtml += '<div class="rune stat-mod"><img class="rune-img" src="' + runesJson.find(r => r.id == runeSet[7]).iconPath.slice(1) + '"/>';
+                summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + runesJson.find(r => r.id == runeSet[7]).name + '</span><hr/>' + runesJson.find(r => r.id == runeSet[7]).longDesc + '</div></div>';
+                summonerListHtml += '<div class="rune stat-mod"><img class="rune-img" src="' + runesJson.find(r => r.id == runeSet[8]).iconPath.slice(1) + '"/>';
+                summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + runesJson.find(r => r.id == runeSet[8]).name + '</span><hr/>' + runesJson.find(r => r.id == runeSet[8]).longDesc + '</div></div>';
+                summonerListHtml += '</div></div>';
+            } catch (error) {
+                console.log({ Runesv1Error: error });
+                summonerListHtml += '<div>No rune data</div></div>';
+            }
+        })
+
+
         /* Items Timeline */
         let sortedItemEvents = groupByTimestamp(summoner.itemEvents);
         summonerListHtml += '<div class="timeline-item flex-row">';
@@ -455,6 +498,7 @@ function createPlayerList(summoners) {
                 summonerListHtml += '<div>&#8594;</div>';
             }
         })
+        summonerListHtml += '</div>';
         summonerListHtml += '</div>';
 
         /* Drop down end */
