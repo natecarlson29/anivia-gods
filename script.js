@@ -400,9 +400,8 @@ function createPlayerList(summoners) {
 
 
         /* Drop down section */
-        summonerListHtml += '<div class="dropdown-info flex-row">';
+        summonerListHtml += '<div class="dropdown-info flex-column">';
         /* All Runes */
-        summonerListHtml += '<div class="flex-column">';
         summoner.allRunes.forEach(runeSet => {
             try {
                 /* Runes */
@@ -496,7 +495,6 @@ function createPlayerList(summoners) {
                 summonerListHtml += '<div>&#8594;</div>';
             }
         })
-        summonerListHtml += '</div>';
         summonerListHtml += '</div>';
 
         /* Drop down end */
