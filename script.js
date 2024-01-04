@@ -30,6 +30,27 @@ function toggleItems() {
     }
 }
 
+function combineAllRunes(allRunes) {
+    const grandchildMap = {};
+    allRunes.forEach(child => {
+        if (child[4] > child[5]) {
+            let temp = child[4];
+            child[4] = child[5];
+            child[5] = temp;
+        }
+        const grandchildKey = `${child[0]}_${child[1]}_${child[2]}_${child[3]}_${child[4]}_${child[5]}`;
+        if (!grandchildMap[grandchildKey]) {
+            let wins = 0;
+            let losses = 0;
+            child[11] ? wins++ : losses++;
+            grandchildMap[grandchildKey] = { grandchild: child, wins: wins, losses: losses };
+        } else {
+            child[11] ? grandchildMap[grandchildKey].wins++ : grandchildMap[grandchildKey].losses++;
+        }
+    });
+    return grandchildMap;
+}
+
 function groupByTimestamp(arr) {
     const result = [];
     let currentGroup = [];
@@ -293,6 +314,7 @@ function dropdownCard(clickedCard) {
 
 function createPlayerList(summoners) {
 
+    summoners = summoners.filter(x => x.wins > 3);
     summoners = summoners.sort((a, b) => b.leaguePoints - a.leaguePoints);
 
     let summonerListHtml = '';
@@ -346,8 +368,11 @@ function createPlayerList(summoners) {
         /* Role */
         summonerListHtml += '<img class="med-img" src="img/lanes/' + summoner.role.toLowerCase() + '.png"/>';
 
+        /* Runes */
+        summonerListHtml += '<div class="flex-column most-used-runes">';
         try {
-            /* Runes */
+            summonerListHtml += '<div class="dropdown-title">Most Used Runes</div>';
+
             summonerListHtml += '<div class="flex-row runes">';
 
             summonerListHtml += '<div class="rune main-rune"><img class="rune-img" src="' + runesJson.find(r => r.id == summoner.runes[0]).iconPath.slice(1) + '"/>';
@@ -383,16 +408,20 @@ function createPlayerList(summoners) {
             console.log({ Runesv1Error: error });
             summonerListHtml += '<div>No rune data</div></div>';
         }
+        summonerListHtml += '</div>';
 
 
         /* Items */
         summonerListHtml += '<div class="flex-row items">';
         summoner.items.forEach(item => {
             if (item && item != 0 && item != 2421) {
-                summonerListHtml += '<div class="item-img"><img src="img/item/' + item + '.png"/>';
                 let itemInfo = itemsJson.data[item];
-                summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + itemInfo.name + '</span><hr/>' + itemInfo.description + '</div>'
-                summonerListHtml += '</div>';
+                console.log({ ItemInfo: itemInfo });
+                if (!itemInfo.into) {
+                    summonerListHtml += '<div class="item-img"><img src="img/item/' + item + '.png"/>';
+                    summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + itemInfo.name + '</span><hr/>' + itemInfo.description + '</div>'
+                    summonerListHtml += '</div>';
+                }
             }
         })
         summonerListHtml += '</div>';
@@ -401,47 +430,47 @@ function createPlayerList(summoners) {
 
         /* Drop down section */
         summonerListHtml += '<div class="dropdown-info flex-column">';
+        let combinedRunes = combineAllRunes(summoner.allRunes);
+        // console.log({ allRunes: combinedRunes });
         /* All Runes */
-        summoner.allRunes.forEach(runeSet => {
-            try {
-                /* Runes */
-                summonerListHtml += '<div class="flex-row runes">';
+        summonerListHtml += '<div class="timeline-item flex-row">';
+        summonerListHtml += '<div class="dropdown-title">All Runes</div>';
+        for (const runeSet in combinedRunes) {
+            /* Runes */
+            summonerListHtml += '<div class="flex-row runes">';
+            summonerListHtml += '<div class="summoner-region runes-winrate"><span class="wins">' + combinedRunes[runeSet].wins + '</span> - <span class="losses">' + combinedRunes[runeSet].losses + '</span></div>';
+            summonerListHtml += '<div class="rune main-rune"><img class="rune-img" src="' + runesJson.find(r => r.id == combinedRunes[runeSet].grandchild[0]).iconPath.slice(1) + '"/>';
+            summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + runesJson.find(r => r.id == combinedRunes[runeSet].grandchild[0]).name + '</span><hr/>' + runesJson.find(r => r.id == combinedRunes[runeSet].grandchild[0]).longDesc + '</div></div>';
 
-                summonerListHtml += '<div class="rune main-rune"><img class="rune-img" src="' + runesJson.find(r => r.id == runeSet[0]).iconPath.slice(1) + '"/>';
-                summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + runesJson.find(r => r.id == runeSet[0]).name + '</span><hr/>' + runesJson.find(r => r.id == runeSet[0]).longDesc + '</div></div>';
+            summonerListHtml += '<div class="flex-column">'
+            summonerListHtml += '<div class="flex-row">'
+            summonerListHtml += '<div class="rune"><img class="rune-img" src="' + runesJson.find(r => r.id == combinedRunes[runeSet].grandchild[1]).iconPath.slice(1) + '"/>';
+            summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + runesJson.find(r => r.id == combinedRunes[runeSet].grandchild[1]).name + '</span><hr/>' + runesJson.find(r => r.id == combinedRunes[runeSet].grandchild[1]).longDesc + '</div></div>';
+            summonerListHtml += '<div class="rune"><img class="rune-img" src="' + runesJson.find(r => r.id == combinedRunes[runeSet].grandchild[2]).iconPath.slice(1) + '"/>';
+            summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + runesJson.find(r => r.id == combinedRunes[runeSet].grandchild[2]).name + '</span><hr/>' + runesJson.find(r => r.id == combinedRunes[runeSet].grandchild[2]).longDesc + '</div></div>';
+            summonerListHtml += '<div class="rune"><img class="rune-img" src="' + runesJson.find(r => r.id == combinedRunes[runeSet].grandchild[3]).iconPath.slice(1) + '"/>';
+            summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + runesJson.find(r => r.id == combinedRunes[runeSet].grandchild[3]).name + '</span><hr/>' + runesJson.find(r => r.id == combinedRunes[runeSet].grandchild[3]).longDesc + '</div></div>';
+            summonerListHtml += '</div>'
 
-                summonerListHtml += '<div class="flex-column">'
-                summonerListHtml += '<div class="flex-row">'
-                summonerListHtml += '<div class="rune"><img class="rune-img" src="' + runesJson.find(r => r.id == runeSet[1]).iconPath.slice(1) + '"/>';
-                summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + runesJson.find(r => r.id == runeSet[1]).name + '</span><hr/>' + runesJson.find(r => r.id == runeSet[1]).longDesc + '</div></div>';
-                summonerListHtml += '<div class="rune"><img class="rune-img" src="' + runesJson.find(r => r.id == runeSet[2]).iconPath.slice(1) + '"/>';
-                summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + runesJson.find(r => r.id == runeSet[2]).name + '</span><hr/>' + runesJson.find(r => r.id == runeSet[2]).longDesc + '</div></div>';
-                summonerListHtml += '<div class="rune"><img class="rune-img" src="' + runesJson.find(r => r.id == runeSet[3]).iconPath.slice(1) + '"/>';
-                summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + runesJson.find(r => r.id == runeSet[3]).name + '</span><hr/>' + runesJson.find(r => r.id == runeSet[3]).longDesc + '</div></div>';
-                summonerListHtml += '</div>'
+            summonerListHtml += '<div class="flex-row">'
+            summonerListHtml += '<div class="rune"><img class="rune-img" src="' + runesJson.find(r => r.id == combinedRunes[runeSet].grandchild[4]).iconPath.slice(1) + '"/>';
+            summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + runesJson.find(r => r.id == combinedRunes[runeSet].grandchild[4]).name + '</span><hr/>' + runesJson.find(r => r.id == combinedRunes[runeSet].grandchild[4]).longDesc + '</div></div>';
+            summonerListHtml += '<div class="rune"><img class="rune-img" src="' + runesJson.find(r => r.id == combinedRunes[runeSet].grandchild[5]).iconPath.slice(1) + '"/>';
+            summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + runesJson.find(r => r.id == combinedRunes[runeSet].grandchild[5]).name + '</span><hr/>' + runesJson.find(r => r.id == combinedRunes[runeSet].grandchild[5]).longDesc + '</div></div>';
+            summonerListHtml += '</div>'
+            summonerListHtml += '</div>'
 
-                summonerListHtml += '<div class="flex-row">'
-                summonerListHtml += '<div class="rune"><img class="rune-img" src="' + runesJson.find(r => r.id == runeSet[4]).iconPath.slice(1) + '"/>';
-                summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + runesJson.find(r => r.id == runeSet[4]).name + '</span><hr/>' + runesJson.find(r => r.id == runeSet[4]).longDesc + '</div></div>';
-                summonerListHtml += '<div class="rune"><img class="rune-img" src="' + runesJson.find(r => r.id == runeSet[5]).iconPath.slice(1) + '"/>';
-                summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + runesJson.find(r => r.id == runeSet[5]).name + '</span><hr/>' + runesJson.find(r => r.id == runeSet[5]).longDesc + '</div></div>';
-                summonerListHtml += '</div>'
-                summonerListHtml += '</div>'
-
-                summonerListHtml += '<div class="flex-column">'
-                summonerListHtml += '<div class="rune stat-mod"><img class="rune-img" src="' + runesJson.find(r => r.id == runeSet[6]).iconPath.slice(1) + '"/>';
-                summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + runesJson.find(r => r.id == runeSet[6]).name + '</span><hr/>' + runesJson.find(r => r.id == runeSet[6]).longDesc + '</div></div>';
-                summonerListHtml += '<div class="rune stat-mod"><img class="rune-img" src="' + runesJson.find(r => r.id == runeSet[7]).iconPath.slice(1) + '"/>';
-                summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + runesJson.find(r => r.id == runeSet[7]).name + '</span><hr/>' + runesJson.find(r => r.id == runeSet[7]).longDesc + '</div></div>';
-                summonerListHtml += '<div class="rune stat-mod"><img class="rune-img" src="' + runesJson.find(r => r.id == runeSet[8]).iconPath.slice(1) + '"/>';
-                summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + runesJson.find(r => r.id == runeSet[8]).name + '</span><hr/>' + runesJson.find(r => r.id == runeSet[8]).longDesc + '</div></div>';
-                summonerListHtml += '</div></div>';
-            } catch (error) {
-                console.log({ Runesv1Error: error });
-                summonerListHtml += '<div>No rune data</div></div>';
-            }
-        })
-        summonerListHtml += '<div class="flex-row">';
+            summonerListHtml += '<div class="flex-column">'
+            summonerListHtml += '<div class="rune stat-mod"><img class="rune-img" src="' + runesJson.find(r => r.id == combinedRunes[runeSet].grandchild[6]).iconPath.slice(1) + '"/>';
+            summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + runesJson.find(r => r.id == combinedRunes[runeSet].grandchild[6]).name + '</span><hr/>' + runesJson.find(r => r.id == combinedRunes[runeSet].grandchild[6]).longDesc + '</div></div>';
+            summonerListHtml += '<div class="rune stat-mod"><img class="rune-img" src="' + runesJson.find(r => r.id == combinedRunes[runeSet].grandchild[7]).iconPath.slice(1) + '"/>';
+            summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + runesJson.find(r => r.id == combinedRunes[runeSet].grandchild[7]).name + '</span><hr/>' + runesJson.find(r => r.id == combinedRunes[runeSet].grandchild[7]).longDesc + '</div></div>';
+            summonerListHtml += '<div class="rune stat-mod"><img class="rune-img" src="' + runesJson.find(r => r.id == combinedRunes[runeSet].grandchild[8]).iconPath.slice(1) + '"/>';
+            summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + runesJson.find(r => r.id == combinedRunes[runeSet].grandchild[8]).name + '</span><hr/>' + runesJson.find(r => r.id == combinedRunes[runeSet].grandchild[8]).longDesc + '</div></div>';
+            summonerListHtml += '</div>';
+            summonerListHtml += '</div>';
+        }
+        summonerListHtml += '</div>';
 
         /* Skills */
         summonerListHtml += '<div class="timeline-item flex-row">';
@@ -453,28 +482,6 @@ function createPlayerList(summoners) {
             summonerListHtml += '<span class="skill-letter' + convertSkillSlot(levelUp.skillSlot) + '">' + convertSkillSlot(levelUp.skillSlot) + '</span>';
         })
         summonerListHtml += '</div>';
-        // testSkillOrder.forEach((skill, id) => {
-        //     summonerListHtml += '<div class="img-container"><span class="skill">' + skill + '</span><img src="img/spell/' + skill + '.png"/>' + (id == 2 ? '' : '<span class="full-height">&#8594;</span>') + '</div>';
-        // })
-
-
-        /* Runes - All */
-        /*try {
-            summonerListHtml += '<div class="rune-page">Primary';
-            let primaryRunes = runesJson.filter(x => x.iconPath.includes('Sorcery'));
-            console.log({ PrimaryRunes: primaryRunes });
-
-            primaryRunes.forEach(rune => {
-                let active = Math.random() <= .25 ? 'active' : '';
-                summonerListHtml += '<div class="rune"><img class="rune-img ' + active + '" src="img/' + rune.iconPath + '"/>';
-                summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + rune.name + '</span><hr/>' + rune.longDesc + '</div></div>';
-            })
-            summonerListHtml += '</div>';
-        } catch (error) {
-            summonerListHtml += '<div>No rune data</div></div>';
-        }*/
-        summonerListHtml += '</div>';
-
 
         /* Items Timeline */
         let sortedItemEvents = groupByTimestamp(summoner.itemEvents);
@@ -505,6 +512,7 @@ function createPlayerList(summoners) {
 }
 
 function fetchSummoners() {
+    // const apiUrl = `http://localhost:3000/summoners`;
     const apiUrl = 'https://getsummoners.azurewebsites.net/api/HttpTrigger1?code=pwBP6CP0m7dXL-Jr5z355I0O9XN3mHvsTy3MJUiMwXvwAzFu8PeHcw==';
     fetch(apiUrl)
         .then(response => response.json())
