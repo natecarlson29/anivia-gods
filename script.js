@@ -435,9 +435,10 @@ function createPlayerList(summoners) {
         /* All Runes */
         summonerListHtml += '<div class="timeline-item flex-row">';
         summonerListHtml += '<div class="dropdown-title">All Runes</div>';
+        combinedRunes = combinedRunes.sort((a, b) => (b.wins / b.losses) - (a.wins / b.losses));
         for (const runeSet in combinedRunes) {
             /* Runes */
-            summonerListHtml += '<div class="flex-row runes">';
+            summonerListHtml += '<div class="flex-row runes ' + combinedRunes[runeSet].wins > combinedRunes[runeSet].losses ? "winner" : "loser" + '">';
             summonerListHtml += '<div class="summoner-region runes-winrate"><span class="wins">' + combinedRunes[runeSet].wins + '</span> - <span class="losses">' + combinedRunes[runeSet].losses + '</span></div>';
             summonerListHtml += '<div class="rune main-rune"><img class="rune-img" src="' + runesJson.find(r => r.id == combinedRunes[runeSet].grandchild[0]).iconPath.slice(1) + '"/>';
             summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + runesJson.find(r => r.id == combinedRunes[runeSet].grandchild[0]).name + '</span><hr/>' + runesJson.find(r => r.id == combinedRunes[runeSet].grandchild[0]).longDesc + '</div></div>';
