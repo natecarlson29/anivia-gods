@@ -363,11 +363,11 @@ body {
     margin: 5px;
 }
 
-.dropdown-info .runes .winner {
+.dropdown-info .runes.winner {
     background-color: rgb(111 217 162 / 30%);
 }
 
-.dropdown-info .runes .loser {
+.dropdown-info .runes.loser {
     background-color: rgb(217 111 111 / 30%);
 }
 
