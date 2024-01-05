@@ -435,7 +435,7 @@ function createPlayerList(summoners) {
         /* All Runes */
         summonerListHtml += '<div class="timeline-item flex-row">';
         summonerListHtml += '<div class="dropdown-title">All Runes</div>';
-        combinedRunes = combinedRunes.sort((a, b) => (b.wins / b.losses) - (a.wins / b.losses));
+        // combinedRunes = combinedRunes.sort((a, b) => (b.wins / b.losses) - (a.wins / b.losses));
         for (const runeSet in combinedRunes) {
             /* Runes */
             summonerListHtml += '<div class="flex-row runes ' + combinedRunes[runeSet].wins > combinedRunes[runeSet].losses ? "winner" : "loser" + '">';
