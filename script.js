@@ -486,7 +486,7 @@ function createPlayerList(summoners) {
         /* Items Timeline */
         let sortedItemEvents = groupByTimestamp(summoner.itemEvents);
         summonerListHtml += '<div class="timeline-item flex-row">';
-        summonerListHtml += '<div class="dropdown-title">Average Build Timeline</div>';
+        summonerListHtml += '<div class="dropdown-title">Example Item Timeline</div>';
         sortedItemEvents.forEach((e, index, array) => {
             summonerListHtml += '<div class="item-timeline-item">';
             e.forEach(item => {
