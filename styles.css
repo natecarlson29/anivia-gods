@@ -363,6 +363,12 @@ body {
     margin: 5px;
 }
 
+#players-list .loader {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
 .dropdown-info .runes.winner {
     background-color: rgb(111 217 162 / 30%);
 }
