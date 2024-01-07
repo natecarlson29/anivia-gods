@@ -8,7 +8,6 @@ function collapseBlob(e) {
     e.stopPropagation();
     let info = document.getElementById('info-blob');
     info.classList.add('collapsed');
-    console.log(info.classList.value);
 }
 
 function expandBlob(e) {
@@ -284,7 +283,6 @@ function convertSkillSlot(skillSlot) {
 
 function toggleBlizzard() {
     const blizzard = document.getElementById('blizzard');
-    console.log({ Blizzard: blizzard });
     blizzard.classList.toggle('hidden');
 }
 
@@ -344,7 +342,7 @@ function createPlayerList(summoners) {
         summonerListHtml += '<img onerror=profPicError(this) class="med-img" src="img/profileicon/' + summoner.profileIconId + '.png"/>';
 
         /* MatchId */
-        // summonerListHtml += '<p class="bottom-right-text">' + summoner.matchId + '</p>';
+        summonerListHtml += '<p class="bottom-right-text">' + summoner.matchId + '</p>';
 
         /* Summoner Name */
         summonerListHtml += '<div class="flex-column"><div class="summoner-name">' + summoner.summonerName + '<span class="riot-tag">#' + summoner.riotTag + '</span></div>';
@@ -369,40 +367,49 @@ function createPlayerList(summoners) {
         summonerListHtml += '<img class="med-img" src="img/lanes/' + summoner.role.toLowerCase() + '.png"/>';
 
         /* Runes */
+        let combinedRunes = combineAllRunes(summoner.allRunes);
+        let games = 0;
+        let mostUsedRunes = null;
+        for (const runeSet in combinedRunes) {
+            if (combinedRunes[runeSet].wins + combinedRunes[runeSet].losses > games) {
+                games = combinedRunes[runeSet].wins + combinedRunes[runeSet].losses;
+                mostUsedRunes = runeSet;
+            }
+        }
         summonerListHtml += '<div class="flex-column most-used-runes">';
         try {
             summonerListHtml += '<div class="dropdown-title">Most Used Runes</div>';
 
             summonerListHtml += '<div class="flex-row runes">';
 
-            summonerListHtml += '<div class="rune main-rune"><img class="rune-img" src="' + runesJson.find(r => r.id == summoner.runes[0]).iconPath.slice(1) + '"/>';
-            summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + runesJson.find(r => r.id == summoner.runes[0]).name + '</span><hr/>' + runesJson.find(r => r.id == summoner.runes[0]).longDesc + '</div></div>';
+            summonerListHtml += '<div class="rune main-rune"><img class="rune-img" src="' + runesJson.find(r => r.id == mostUsedRunes.grandchild[0]).iconPath.slice(1) + '"/>';
+            summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + runesJson.find(r => r.id == mostUsedRunes.grandchild[0]).name + '</span><hr/>' + runesJson.find(r => r.id == mostUsedRunes.grandchild[0]).longDesc + '</div></div>';
 
             summonerListHtml += '<div class="flex-column">'
             summonerListHtml += '<div class="flex-row">'
-            summonerListHtml += '<div class="rune"><img class="rune-img" src="' + runesJson.find(r => r.id == summoner.runes[1]).iconPath.slice(1) + '"/>';
-            summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + runesJson.find(r => r.id == summoner.runes[1]).name + '</span><hr/>' + runesJson.find(r => r.id == summoner.runes[1]).longDesc + '</div></div>';
-            summonerListHtml += '<div class="rune"><img class="rune-img" src="' + runesJson.find(r => r.id == summoner.runes[2]).iconPath.slice(1) + '"/>';
-            summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + runesJson.find(r => r.id == summoner.runes[2]).name + '</span><hr/>' + runesJson.find(r => r.id == summoner.runes[2]).longDesc + '</div></div>';
-            summonerListHtml += '<div class="rune"><img class="rune-img" src="' + runesJson.find(r => r.id == summoner.runes[3]).iconPath.slice(1) + '"/>';
-            summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + runesJson.find(r => r.id == summoner.runes[3]).name + '</span><hr/>' + runesJson.find(r => r.id == summoner.runes[3]).longDesc + '</div></div>';
+            summonerListHtml += '<div class="rune"><img class="rune-img" src="' + runesJson.find(r => r.id == mostUsedRunes.grandchild[1]).iconPath.slice(1) + '"/>';
+            summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + runesJson.find(r => r.id == mostUsedRunes.grandchild[1]).name + '</span><hr/>' + runesJson.find(r => r.id == mostUsedRunes.grandchild[1]).longDesc + '</div></div>';
+            summonerListHtml += '<div class="rune"><img class="rune-img" src="' + runesJson.find(r => r.id == mostUsedRunes.grandchild[2]).iconPath.slice(1) + '"/>';
+            summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + runesJson.find(r => r.id == mostUsedRunes.grandchild[2]).name + '</span><hr/>' + runesJson.find(r => r.id == mostUsedRunes.grandchild[2]).longDesc + '</div></div>';
+            summonerListHtml += '<div class="rune"><img class="rune-img" src="' + runesJson.find(r => r.id == mostUsedRunes.grandchild[3]).iconPath.slice(1) + '"/>';
+            summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + runesJson.find(r => r.id == mostUsedRunes.grandchild[3]).name + '</span><hr/>' + runesJson.find(r => r.id == mostUsedRunes.grandchild[3]).longDesc + '</div></div>';
             summonerListHtml += '</div>'
 
             summonerListHtml += '<div class="flex-row">'
-            summonerListHtml += '<div class="rune"><img class="rune-img" src="' + runesJson.find(r => r.id == summoner.runes[4]).iconPath.slice(1) + '"/>';
-            summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + runesJson.find(r => r.id == summoner.runes[4]).name + '</span><hr/>' + runesJson.find(r => r.id == summoner.runes[4]).longDesc + '</div></div>';
-            summonerListHtml += '<div class="rune"><img class="rune-img" src="' + runesJson.find(r => r.id == summoner.runes[5]).iconPath.slice(1) + '"/>';
-            summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + runesJson.find(r => r.id == summoner.runes[5]).name + '</span><hr/>' + runesJson.find(r => r.id == summoner.runes[5]).longDesc + '</div></div>';
+            summonerListHtml += '<div class="rune"><img class="rune-img" src="' + runesJson.find(r => r.id == mostUsedRunes.grandchild[4]).iconPath.slice(1) + '"/>';
+            summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + runesJson.find(r => r.id == mostUsedRunes.grandchild[4]).name + '</span><hr/>' + runesJson.find(r => r.id == mostUsedRunes.grandchild[4]).longDesc + '</div></div>';
+            summonerListHtml += '<div class="rune"><img class="rune-img" src="' + runesJson.find(r => r.id == mostUsedRunes.grandchild[5]).iconPath.slice(1) + '"/>';
+            summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + runesJson.find(r => r.id == mostUsedRunes.grandchild[5]).name + '</span><hr/>' + runesJson.find(r => r.id == mostUsedRunes.grandchild[5]).longDesc + '</div></div>';
             summonerListHtml += '</div>'
             summonerListHtml += '</div>'
 
             summonerListHtml += '<div class="flex-column">'
-            summonerListHtml += '<div class="rune stat-mod"><img class="rune-img" src="' + runesJson.find(r => r.id == summoner.runes[6]).iconPath.slice(1) + '"/>';
-            summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + runesJson.find(r => r.id == summoner.runes[6]).name + '</span><hr/>' + runesJson.find(r => r.id == summoner.runes[6]).longDesc + '</div></div>';
-            summonerListHtml += '<div class="rune stat-mod"><img class="rune-img" src="' + runesJson.find(r => r.id == summoner.runes[7]).iconPath.slice(1) + '"/>';
-            summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + runesJson.find(r => r.id == summoner.runes[7]).name + '</span><hr/>' + runesJson.find(r => r.id == summoner.runes[7]).longDesc + '</div></div>';
-            summonerListHtml += '<div class="rune stat-mod"><img class="rune-img" src="' + runesJson.find(r => r.id == summoner.runes[8]).iconPath.slice(1) + '"/>';
-            summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + runesJson.find(r => r.id == summoner.runes[8]).name + '</span><hr/>' + runesJson.find(r => r.id == summoner.runes[8]).longDesc + '</div></div>';
+            summonerListHtml += '<div class="rune stat-mod"><img class="rune-img" src="' + runesJson.find(r => r.id == mostUsedRunes.grandchild[6]).iconPath.slice(1) + '"/>';
+            summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + runesJson.find(r => r.id == mostUsedRunes.grandchild[6]).name + '</span><hr/>' + runesJson.find(r => r.id == mostUsedRunes.grandchild[6]).longDesc + '</div></div>';
+            summonerListHtml += '<div class="rune stat-mod"><img class="rune-img" src="' + runesJson.find(r => r.id == mostUsedRunes.grandchild[7]).iconPath.slice(1) + '"/>';
+            summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + runesJson.find(r => r.id == mostUsedRunes.grandchild[7]).name + '</span><hr/>' + runesJson.find(r => r.id == mostUsedRunes.grandchild[7]).longDesc + '</div></div>';
+            summonerListHtml += '<div class="rune stat-mod"><img class="rune-img" src="' + runesJson.find(r => r.id == mostUsedRunes.grandchild[8]).iconPath.slice(1) + '"/>';
+            summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + runesJson.find(r => r.id == mostUsedRunes.grandchild[8]).name + '</span><hr/>' + runesJson.find(r => r.id == mostUsedRunes.grandchild[8]).longDesc + '</div></div>';
             summonerListHtml += '</div></div>';
         } catch (error) {
             console.log({ Runesv1Error: error });
@@ -414,9 +421,8 @@ function createPlayerList(summoners) {
         /* Items */
         summonerListHtml += '<div class="flex-row items">';
         summoner.items.forEach(item => {
-            if (item && item != 0 && item != 2421) {
+            if (item && item != 0 && item != 2421 && item != 2055) {
                 let itemInfo = itemsJson.data[item];
-                console.log({ ItemInfo: itemInfo });
                 // if (!itemInfo.into) {
                 summonerListHtml += '<div class="item-img"><img src="img/item/' + item + '.png"/>';
                 summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + itemInfo.name + '</span><hr/>' + itemInfo.description + '</div>'
@@ -430,7 +436,6 @@ function createPlayerList(summoners) {
 
         /* Drop down section */
         summonerListHtml += '<div class="dropdown-info flex-column">';
-        let combinedRunes = combineAllRunes(summoner.allRunes);
         // console.log({ allRunes: combinedRunes });
         /* All Runes */
         summonerListHtml += '<div class="timeline-item flex-row">';
