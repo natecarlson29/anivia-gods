@@ -373,7 +373,7 @@ function createPlayerList(summoners) {
         for (const runeSet in combinedRunes) {
             if (combinedRunes[runeSet].wins + combinedRunes[runeSet].losses > games) {
                 games = combinedRunes[runeSet].wins + combinedRunes[runeSet].losses;
-                mostUsedRunes = runeSet;
+                mostUsedRunes = combinedRunes[runeSet];
             }
         }
         summonerListHtml += '<div class="flex-column most-used-runes">';
