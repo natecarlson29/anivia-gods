@@ -342,7 +342,7 @@ function createPlayerList(summoners) {
         summonerListHtml += '<img onerror=profPicError(this) class="med-img" src="img/profileicon/' + summoner.profileIconId + '.png"/>';
 
         /* MatchId */
-        summonerListHtml += '<p class="bottom-right-text">' + summoner.matchId + '</p>';
+        // summonerListHtml += '<p class="bottom-right-text">' + summoner.matchId + '</p>';
 
         /* Summoner Name */
         summonerListHtml += '<div class="flex-column"><div class="summoner-name">' + summoner.summonerName + '<span class="riot-tag">#' + summoner.riotTag + '</span></div>';
