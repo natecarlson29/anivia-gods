@@ -417,11 +417,11 @@ function createPlayerList(summoners) {
             if (item && item != 0 && item != 2421) {
                 let itemInfo = itemsJson.data[item];
                 console.log({ ItemInfo: itemInfo });
-                if (!itemInfo.into) {
-                    summonerListHtml += '<div class="item-img"><img src="img/item/' + item + '.png"/>';
-                    summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + itemInfo.name + '</span><hr/>' + itemInfo.description + '</div>'
-                    summonerListHtml += '</div>';
-                }
+                // if (!itemInfo.into) {
+                summonerListHtml += '<div class="item-img"><img src="img/item/' + item + '.png"/>';
+                summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + itemInfo.name + '</span><hr/>' + itemInfo.description + '</div>'
+                summonerListHtml += '</div>';
+                // }
             }
         })
         summonerListHtml += '</div>';
