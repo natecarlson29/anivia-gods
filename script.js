@@ -310,10 +310,22 @@ function dropdownCard(clickedCard) {
 
 /* Summoners */
 
+function customSort(obj1, obj2) {
+    if (obj1.rank === 'd1' && obj2.rank === 'd1') {
+        return obj2.leaguePoints - obj1.leaguePoints;
+    } else if (obj1.rank === 'd1') {
+        return 1;
+    } else if (obj2.rank === 'd1') {
+        return -1;
+    } else {
+        return obj2.leaguePoints - obj1.leaguePoints;
+    }
+}
+
 function createPlayerList(summoners) {
 
     summoners = summoners.filter(x => x.wins > 3);
-    summoners = summoners.sort((a, b) => b.leaguePoints - a.leaguePoints);
+    summoners = summoners.sort(customSort);
 
     let summonerListHtml = '';
     let testItems = ['6657', '3020', '3157'];
