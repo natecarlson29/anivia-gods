@@ -311,11 +311,11 @@ function dropdownCard(clickedCard) {
 /* Summoners */
 
 function customSort(obj1, obj2) {
-    if (obj1.rank === 'd1' && obj2.rank === 'd1') {
+    if (obj1.tier === 'd1' && obj2.tier === 'd1') {
         return obj2.leaguePoints - obj1.leaguePoints;
-    } else if (obj1.rank === 'd1') {
+    } else if (obj1.tier === 'd1') {
         return 1;
-    } else if (obj2.rank === 'd1') {
+    } else if (obj2.tier === 'd1') {
         return -1;
     } else {
         return obj2.leaguePoints - obj1.leaguePoints;
