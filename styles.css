@@ -100,8 +100,8 @@ body {
 }
 
 #players-list .summoner-spells img {
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     border: 1px solid black;
 }
 
@@ -152,6 +152,8 @@ body {
 
 .dropdown-title {
     background-color: #1a1a1a;
+    /* border-bottom: #1a1a1a 1px solid; */
+    text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
     padding: 3px;
     display: flex;
     justify-content: center;
@@ -166,7 +168,7 @@ body {
     color: #ffffff;
     margin-left: 20px;
     margin-right: 20px;
-    margin-top: -12px;
+    margin-top: -15px;
     padding: 5px;
     z-index: 2;
     margin-bottom: 50px;
@@ -175,9 +177,9 @@ body {
 
 .dropdown-info>div {
     margin: 10px;
-    padding: 5px;
+    /* padding: 5px; */
     background-color: #272727;
-    border-radius: 3px;
+    /* border-radius: 3px; */
 }
 
 .summoner-card {
@@ -185,7 +187,7 @@ body {
     background-color: #31313c;
     color: #ffffff;
     margin: 10px;
-    padding: 5px;
+    padding: 2px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s ease-in-out;
     border: 2px solid #3a3a3a;
@@ -301,7 +303,7 @@ body {
 }
 
 .summoner-card-active {
-    transform: scale(1.05);
+    /* transform: scale(1.05); */
     border-color: #3498db;
     cursor: default;
 }
@@ -309,7 +311,7 @@ body {
 .summoner-card:hover,
 .tooltiptext {
     /* background-color: #282830; */
-    transform: scale(1.05);
+    /* transform: scale(1.05); */
     z-index: 5;
     border-color: #3498db;
     cursor: default;
@@ -399,8 +401,8 @@ body {
 }
 
 #players-list .item-img img {
-    height: 40px;
-    width: 40px;
+    height: 35px;
+    width: 35px;
     margin: 2px 5px;
     border: 1px solid black;
 }
