@@ -407,6 +407,11 @@ body {
     border: 1px solid black;
 }
 
+.flex-row.items {
+    align-content: center;
+    justify-content: center;
+}
+
 #players-list .item-timeline-item .item-img img {
     height: 32px;
     width: 32px;
@@ -833,6 +838,8 @@ header img {
     #players-list .item-img img {
         height: 27px;
         width: 27px;
+        padding: 0px;
+        margin: 0px;
     }
 
     .items {

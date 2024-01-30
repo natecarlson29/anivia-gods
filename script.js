@@ -94,6 +94,22 @@ function convertTimestampToMinutesAndSeconds(timestamp) {
     return formattedTime;
 }
 
+function findMostCommonValue(array) {
+    const occurrences = {};
+    array.forEach(value => {
+        occurrences[value] = (occurrences[value] || 0) + 1;
+    });
+    let mostCommonValue = null;
+    let highestCount = 0;
+    for (const [value, count] of Object.entries(occurrences)) {
+        if (count > highestCount) {
+            mostCommonValue = Number(value);
+            highestCount = count;
+        }
+    }
+    return mostCommonValue;
+}
+
 function convertSkillSlot(skillSlot) {
     switch (skillSlot) {
         case 1:
@@ -106,180 +122,6 @@ function convertSkillSlot(skillSlot) {
             return 'R';
     }
 }
-
-// function fetchSummonerData() {
-//     const matchId = 'NA1_4838882227';
-//     const url = `http://localhost:3000/match/${encodeURIComponent(matchId)}`;
-//     const puuid = 'Tdocf9jtTuJeSnsfIVFcDCj7R-zTu3CyHGu58bgp9pfyCnD45VDaKfO2RuCP8IqyTmvzPualmD11QA'
-
-//     // Make a GET request using the Fetch API
-//     fetch(url)
-//         .then(response => response.json())
-//         .then(data => {
-//             let summonerData = data.info.participants.find(x => x.riotIdGameName == 'Nathaniel');
-
-//             /* Lane / Matchup */
-//             let laneHtml = '<div class="flex-row">';
-//             laneHtml += '<img src=img/lanes/' + summonerData.individualPosition.toLowerCase() + '.png /> VS ';
-//             let matchup = data.info.participants.find(x => x.riotIdGameName != 'Nathaniel' && x.individualPosition == summonerData.individualPosition).championName;
-//             matchup = matchup.charAt(0).toUpperCase() + matchup.slice(1);
-//             laneHtml += '<img src="img/champion/' + matchup + '.png" /></div>';
-//             document.getElementById('lane').innerHTML = laneHtml;
-
-//             let summonerHtml = '<div>';
-//             console.log({ SummonerData: summonerData });
-//             /* Items */
-//             for (let i = 0; i < 6; i++) {
-//                 if (summonerData['item' + i]) {
-//                     summonerHtml += '<div class="item-img"><img src="img/item/' + summonerData['item' + i] + '.png"/>';
-//                     let itemInfo = itemsJson.data[summonerData['item' + i]];
-//                     summonerHtml += '<div class="tooltiptext"><span class="rune-title">' + itemInfo.name + '</span><hr/>' + itemInfo.description + '</div></div></div>'
-//                 }
-//             }
-//             summonerHtml += '</div>';
-//             document.getElementById('items').innerHTML = summonerHtml;
-//             /* Runes */
-//             // let runes = [
-//             //     // summonerData.perks.styles[0].style,
-//             //     summonerData.perks.styles[0].selections[0].perk,
-//             //     summonerData.perks.styles[0].selections[1].perk,
-//             //     summonerData.perks.styles[0].selections[2].perk,
-//             //     summonerData.perks.styles[0].selections[3].perk,
-//             //     // summonerData.perks.styles[1].style,
-//             //     summonerData.perks.styles[1].selections[0].perk,
-//             //     summonerData.perks.styles[1].selections[1].perk,
-//             //     summonerData.perks.statPerks.offense,
-//             //     summonerData.perks.statPerks.flex,
-//             //     summonerData.perks.statPerks.defense
-//             // ];
-//             console.log({ activeRunes: runes });
-//             const runeElement = document.getElementById('rune-page');
-//             let runesHtml = '<div class="flex-row">';
-
-//             runesHtml += '<div class="rune main-rune"><img class="rune-img" src="' + runesJson.find(r => r.id == summoner.runes[0]).iconPath.slice(1) + '"/>';
-//             runesHtml += '<div class="tooltiptext"><span class="rune-title">' + runesJson.find(r => r.id == summoner.runes[0]).name + '</span><hr/>' + runesJson.find(r => r.id == summoner.runes[0]).longDesc + '</div></div>';
-
-//             runesHtml += '<div class="flex-column">'
-//             runesHtml += '<div class="flex-row">'
-//             runesHtml += '<div class="rune"><img class="rune-img" src="' + runesJson.find(r => r.id == summoner.runes[1]).iconPath.slice(1) + '"/>';
-//             runesHtml += '<div class="tooltiptext"><span class="rune-title">' + runesJson.find(r => r.id == summoner.runes[1]).name + '</span><hr/>' + runesJson.find(r => r.id == summoner.runes[1]).longDesc + '</div></div>';
-//             runesHtml += '<div class="rune"><img class="rune-img" src="' + runesJson.find(r => r.id == summoner.runes[2]).iconPath.slice(1) + '"/>';
-//             runesHtml += '<div class="tooltiptext"><span class="rune-title">' + runesJson.find(r => r.id == summoner.runes[2]).name + '</span><hr/>' + runesJson.find(r => r.id == summoner.runes[2]).longDesc + '</div></div>';
-//             runesHtml += '<div class="rune"><img class="rune-img" src="' + runesJson.find(r => r.id == summoner.runes[3]).iconPath.slice(1) + '"/>';
-//             runesHtml += '<div class="tooltiptext"><span class="rune-title">' + runesJson.find(r => r.id == summoner.runes[3]).name + '</span><hr/>' + runesJson.find(r => r.id == summoner.runes[3]).longDesc + '</div></div>';
-//             runesHtml += '</div>'
-
-//             runesHtml += '<div class="flex-row">'
-//             runesHtml += '<div class="rune"><img class="rune-img" src="' + runesJson.find(r => r.id == summoner.runes[4]).iconPath.slice(1) + '"/>';
-//             runesHtml += '<div class="tooltiptext"><span class="rune-title">' + runesJson.find(r => r.id == summoner.runes[4]).name + '</span><hr/>' + runesJson.find(r => r.id == summoner.runes[4]).longDesc + '</div></div>';
-//             runesHtml += '<div class="rune"><img class="rune-img" src="' + runesJson.find(r => r.id == summoner.runes[5]).iconPath.slice(1) + '"/>';
-//             runesHtml += '<div class="tooltiptext"><span class="rune-title">' + runesJson.find(r => r.id == summoner.runes[5]).name + '</span><hr/>' + runesJson.find(r => r.id == summoner.runes[5]).longDesc + '</div></div>';
-//             runesHtml += '</div>'
-//             runesHtml += '</div>'
-
-//             runesHtml += '<div class="flex-column">'
-//             runesHtml += '<div class="rune stat-mod"><img class="rune-img" src="' + runesJson.find(r => r.id == summoner.runes[6]).iconPath.slice(1) + '"/>';
-//             runesHtml += '<div class="tooltiptext"><span class="rune-title">' + runesJson.find(r => r.id == summoner.runes[6]).name + '</span><hr/>' + runesJson.find(r => r.id == summoner.runes[6]).longDesc + '</div></div>';
-//             runesHtml += '<div class="rune stat-mod"><img class="rune-img" src="' + runesJson.find(r => r.id == summoner.runes[7]).iconPath.slice(1) + '"/>';
-//             runesHtml += '<div class="tooltiptext"><span class="rune-title">' + runesJson.find(r => r.id == summoner.runes[7]).name + '</span><hr/>' + runesJson.find(r => r.id == summoner.runes[7]).longDesc + '</div></div>';
-//             runesHtml += '<div class="rune stat-mod"><img class="rune-img" src="' + runesJson.find(r => r.id == summoner.runes[8]).iconPath.slice(1) + '"/>';
-//             runesHtml += '<div class="tooltiptext"><span class="rune-title">' + runesJson.find(r => r.id == summoner.runes[8]).name + '</span><hr/>' + runesJson.find(r => r.id == summoner.runes[8]).longDesc + '</div></div>';
-//             runesHtml += '</div>'
-//             runesHtml += '</div>';
-//             runeElement.innerHTML += runesHtml;
-//         })
-//         .catch(error => {
-//             console.error('Error fetching summoner data:', error);
-//             // Handle errors
-//         });
-
-//     const timeLineUrl = `http://localhost:3000/matchTimeline/${encodeURIComponent(matchId)}`;
-//     fetch(timeLineUrl)
-//         .then(response => response.json())
-//         .then(data => {
-//             let participantId = data.info.participants.find(x => x.puuid == puuid).participantId;
-//             let events = [];
-//             data.info.frames.forEach(frame => {
-//                 frame.events.forEach(event => {
-//                     if (event.participantId == participantId) {
-//                         events.push(event);
-//                     }
-//                 })
-//             })
-//             console.log('Nathaniel Timeline:' + JSON.stringify(events));
-
-//             let itemEvents = events.filter(x => x.type.includes('ITEM_PURCHASED') || x.type.includes('ITEM_SOLD'));
-//             /* Items */
-//             let timelineHtml = '<div class="timeline-item flex-row">';
-//             itemEvents.forEach((e, index) => {
-//                 if (itemEvents[index - 1] && (e.timestamp - itemEvents[index - 1].timestamp > 3000)) {
-//                     timelineHtml += convertTimestampToMinutesAndSeconds(itemEvents[index - 1].timestamp) + '<br />';
-//                 }
-//                 timelineHtml += '<img src="img/item/' + e.itemId + '.png"/>';
-//             })
-//             timelineHtml += '</div>';
-//             document.getElementById('timeline').innerHTML = timelineHtml;
-
-//             /* Skills */
-//             let skillEvents = events.filter(x => x.type == 'SKILL_LEVEL_UP');
-//             let skillsHtml = '<div class="timeline-skills">';
-//             skillEvents.forEach((levelUp, index) => {
-//                 if (index > 0) {
-//                     skillsHtml += '&#8594;';
-//                 }
-//                 skillsHtml += convertSkillSlot(levelUp.skillSlot);
-//             })
-//             skillsHtml += '</div>';
-//             document.getElementById('timeline-levels').innerHTML = skillsHtml;
-
-//             /* Skill Order */
-
-//             let Q = 0;
-//             let W = 0;
-//             let E = 0;
-//             let skillOrder = [];
-//             skillEvents.forEach(event => {
-//                 switch (event.skillSlot) {
-//                     case 1:
-//                         Q++;
-//                         if (Q == 5 && !skillOrder.includes('Q')) {
-//                             skillOrder.push('<div class="img-container"><span class="skill">Q</span><img src="img/spell/Q.png"/></div>');
-//                         }
-//                         break;
-//                     case 2:
-//                         W++;
-//                         if (W == 5 && !skillOrder.includes('W')) {
-//                             skillOrder.push('<div class="img-container"><span class="skill">W</span><img src="img/spell/W.png"/></div>');
-//                         }
-//                         break;
-//                     case 3:
-//                         E++;
-//                         if (E == 5 && !skillOrder.includes('E')) {
-//                             skillOrder.push('<div class="img-container"><span class="skill">E</span><img src="img/spell/E.png"/></div>');
-//                         }
-//                         break;
-//                 }
-//             });
-
-//             if (skillOrder.length < 3) {
-//                 if (!skillOrder.includes('Q.png')) {
-//                     skillOrder.push('<div class="img-container"><span class="skill">Q</span><img src="img/spell/Q.png"/></div>');
-//                 }
-//                 else if (!skillOrder.includes('W.png')) {
-//                     skillOrder.push('<div class="img-container"><span class="skill">W</span><img src="img/spell/W.png"/></div>');
-//                 } else {
-//                     skillOrder.push('<div class="img-container"><span class="skill">E</span><img src="img/spell/E.png"/></div>');
-//                 }
-//             }
-//             let skillOrderHtml = skillOrder[0] + '&#8594;' + skillOrder[1] + '&#8594;' + skillOrder[2];
-//             document.getElementById('skill-order').innerHTML = skillOrderHtml;
-
-//         })
-//         .catch(error => {
-//             console.error('Error fetching summoner data:', error);
-//             // Handle errors
-//         });
-// }
 
 function toggleBlizzard() {
     const blizzard = document.getElementById('blizzard');
@@ -431,21 +273,27 @@ function createPlayerList(summoners) {
 
 
         /* Items */
+        summonerListHtml += '<div class="flex-column most-used-runes">';
+        summonerListHtml += '<div style="margin-bottom: 10px;" class="dropdown-title">Most Common Build</div>';
         summonerListHtml += '<div class="flex-row items">';
-        summoner.items.forEach(item => {
-            if (item && item != 0 && item != 2421 && item != 2055) {
-                let itemInfo = itemsJson.find(x => x.id == item);
-                if (itemInfo) {
-                    summonerListHtml += '<div class="item-img"><img src="img/item/' + item + '.png"/>';
-                    summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + itemInfo.name + '</span><hr/>' + itemInfo.description + '</div>'
-                    summonerListHtml += '</div>';
-                } else {
-                    summonerListHtml += '<div>' + item + '</div>';
+        summoner.items.forEach(itemArray => {
+            let item = findMostCommonValue(itemArray);
+            let itemInfo = itemsJson.find(x => x.id == item);
+            if (itemInfo) {
+                if (summoner.items.indexOf(itemArray) != 0) {
+                    summonerListHtml += '<div>></div>';
                 }
+                summonerListHtml += '<div class="item-img"><img src="img/item/' + item + '.png"/>';
+                summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + itemInfo.name + '</span><hr/>' + itemInfo.description + '</div>'
+                summonerListHtml += '</div>';
+                // console.log({ IndexOf: summoner.items.indexOf(itemArray) });
+            } else {
+                console.log({ ItemError: item });
+                // summonerListHtml += '<div>' + item + '</div>';
             }
         })
         summonerListHtml += '</div>';
-        summonerListHtml += '</div>';
+        summonerListHtml += '</div></div>';
 
 
         /* Drop down section */
@@ -470,6 +318,28 @@ function createPlayerList(summoners) {
         //     summonerListHtml += '</div>';
         // })
         // summonerListHtml += '</div>';
+
+        /* Itemization */
+        // summonerListHtml += '<div class="timeline-item flex-row">';
+        // summonerListHtml += '<div class="dropdown-title">Itemization</div>';
+        // summoner.skillEvents.forEach((levelUp, index) => {
+        //     if (index > 0) {
+        //         summonerListHtml += '&#8594;';
+        //     }
+        //     summonerListHtml += '<span class="skill-letter' + convertSkillSlot(levelUp.skillSlot) + '">' + convertSkillSlot(levelUp.skillSlot) + '</span>';
+        // })
+        // summonerListHtml += '</div>';
+
+        /* Skills */
+        summonerListHtml += '<div class="timeline-item flex-row">';
+        summonerListHtml += '<div class="dropdown-title">Skill Order</div>';
+        summoner.skillEvents.forEach((levelUp, index) => {
+            if (index > 0) {
+                summonerListHtml += '&#8594;';
+            }
+            summonerListHtml += '<span class="skill-letter' + convertSkillSlot(levelUp.skillSlot) + '">' + convertSkillSlot(levelUp.skillSlot) + '</span>';
+        })
+        summonerListHtml += '</div>';
 
         /* All Runes */
         summonerListHtml += '<div class="timeline-item flex-row">';
@@ -511,17 +381,6 @@ function createPlayerList(summoners) {
             summonerListHtml += '</div>';
             summonerListHtml += '</div>';
         }
-        summonerListHtml += '</div>';
-
-        /* Skills */
-        summonerListHtml += '<div class="timeline-item flex-row">';
-        summonerListHtml += '<div class="dropdown-title">Skill Order</div>';
-        summoner.skillEvents.forEach((levelUp, index) => {
-            if (index > 0) {
-                summonerListHtml += '&#8594;';
-            }
-            summonerListHtml += '<span class="skill-letter' + convertSkillSlot(levelUp.skillSlot) + '">' + convertSkillSlot(levelUp.skillSlot) + '</span>';
-        })
         summonerListHtml += '</div>';
 
         /* Items Timeline */
