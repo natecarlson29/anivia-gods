@@ -110,6 +110,22 @@ function findMostCommonValue(array) {
     return mostCommonValue;
 }
 
+function calculatePercentage(array) {
+    const occurrences = {};
+    const totalValues = array.length;
+
+    array.forEach(value => {
+        occurrences[value] = (occurrences[value] || 0) + 1;
+    });
+
+    const percentages = {};
+    for (const [value, count] of Object.entries(occurrences)) {
+        percentages[value] = Math.round((count / totalValues) * 100);
+    }
+
+    return percentages;
+}
+
 function convertSkillSlot(skillSlot) {
     switch (skillSlot) {
         case 1:
@@ -146,7 +162,7 @@ function dropdownCard(clickedCard) {
         dropdownContent.style.display = 'none';
     }
     dropdownContent.classList.toggle('dropdown-info-active');
-    dropdownContent.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    // dropdownContent.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
 
@@ -164,25 +180,40 @@ function customSort(obj1, obj2) {
     }
 }
 
+function finalPlayerStats(summoners) {
+    summoners.forEach(summoner => {
+        //Boots
+        let boots = [];
+        summoner.allItems.forEach((itemSet) => {
+            itemSet.forEach(item => {
+                if (item != 0 && item != 1001) {
+                    let itemInfo = itemsJson.find(x => x.id == item);
+                    if (itemInfo.categories && itemInfo.categories.includes('Boots')) {
+                        boots.push(item);
+                    }
+                }
+            });
+        });
+        summoner.boots = calculatePercentage(boots);
+        // console.log({ Boots: summoner.boots });
+        // console.log({ NewItem: summoner.items });
+
+        //Item Sets
+        // summoner.items.forEach(itemArray => {
+        //     let item = findMostCommonValue(itemArray);
+        //     let itemInfo = itemsJson.find(x => x.id == item);
+        // })
+    })
+
+    return summoners;
+}
+
 function createPlayerList(summoners) {
 
     summoners = summoners.filter(x => x.wins > 3);
     summoners = summoners.sort(customSort);
 
     let summonerListHtml = '';
-    let testItems = ['6657', '3020', '3157'];
-    let testSkillOrder = ['E', 'Q', 'W'];
-    let runes = [
-        8112,
-        8126,
-        8138,
-        8105,
-        8014,
-        8009,
-        5005,
-        5008,
-        5002
-    ]
 
     summoners.forEach(summoner => {
         summonerListHtml += '<div class="flex-row summoner-card" onclick="dropdownCard(this)">';
@@ -232,7 +263,7 @@ function createPlayerList(summoners) {
         }
         summonerListHtml += '<div class="flex-column most-used-runes">';
         try {
-            summonerListHtml += '<div class="dropdown-title">Most Used Runes</div>';
+            summonerListHtml += '<div class="dropdown-title">Most Common Runes</div>';
 
             summonerListHtml += '<div class="flex-row runes">';
 
@@ -274,7 +305,7 @@ function createPlayerList(summoners) {
 
         /* Items */
         summonerListHtml += '<div class="flex-column most-used-runes">';
-        summonerListHtml += '<div style="margin-bottom: 10px;" class="dropdown-title">Most Common Build</div>';
+        summonerListHtml += '<div class="dropdown-title">Most Common Build</div>';
         summonerListHtml += '<div class="flex-row items">';
         summoner.items.forEach(itemArray => {
             let item = findMostCommonValue(itemArray);
@@ -298,37 +329,17 @@ function createPlayerList(summoners) {
 
         /* Drop down section */
         summonerListHtml += '<div class="dropdown-info flex-column">';
-        // console.log({ allRunes: combinedRunes });
-
-        /* All Items */
-        // summonerListHtml += '<div class="timeline-item flex-row">';
-        // summonerListHtml += '<div class="dropdown-title">All Items</div>';
-        // summoner.allItems.forEach((itemSet, index) => {
-        //     summonerListHtml += '<div class="flex-row items">';
-        //     itemSet.forEach(item => {
-        //         if (item != 0) {
-        //             let itemInfo = itemsJson.find(x => x.id == item);
-        //             if (itemInfo.categories && itemInfo.categories.includes('Boots')) {
-        //                 console.log({ ItemInfo: itemInfo });
-        //                 summonerListHtml += '<div class="item-img"><img src="img/item/' + item + '.png"/>';
-        //                 summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + itemInfo.name + '</span><hr/>' + itemInfo.description + '</div></div>';
-        //             }
-        //         }
-        //     })
-        //     summonerListHtml += '</div>';
-        // })
-        // summonerListHtml += '</div>';
 
         /* Itemization */
-        // summonerListHtml += '<div class="timeline-item flex-row">';
-        // summonerListHtml += '<div class="dropdown-title">Itemization</div>';
-        // summoner.skillEvents.forEach((levelUp, index) => {
-        //     if (index > 0) {
-        //         summonerListHtml += '&#8594;';
-        //     }
-        //     summonerListHtml += '<span class="skill-letter' + convertSkillSlot(levelUp.skillSlot) + '">' + convertSkillSlot(levelUp.skillSlot) + '</span>';
-        // })
-        // summonerListHtml += '</div>';
+        summonerListHtml += '<div class="timeline-item flex-row">';
+        summonerListHtml += '<div class="dropdown-title">Boots</div>';
+        summonerListHtml += '<div class="flex-row boots">';
+        for (const [key, value] of Object.entries(summoner.boots)) {
+            let itemInfo = itemsJson.find(x => x.id == key);
+            summonerListHtml += `<div class="item-img"><img src="img/item/${key}.png"/>`;
+            summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + itemInfo.name + '</span><hr/>' + itemInfo.description + `</div><div style="text-align: center;"><b>${value}%</b></div></div>`;
+        }
+        summonerListHtml += '</div></div>';
 
         /* Skills */
         summonerListHtml += '<div class="timeline-item flex-row">';
@@ -424,7 +435,8 @@ function fetchSummoners() {
     fetch(apiUrl)
         .then(response => response.json())
         .then(data => {
-            console.log(data);
+            console.log({ ResponseData: data });
+            data = finalPlayerStats(data);
             createPlayerList(data);
         })
         .catch(error => {
@@ -434,118 +446,3 @@ function fetchSummoners() {
 }
 
 fetchSummoners();
-
-// let summoners = [{
-//     riotName: "Nathaniel",
-//     riotTag: "NA1",
-//     region: "NA",
-//     rank: "Master",
-//     lp: "93",
-//     profileIconId: "577",
-//     wins: "139",
-//     losses: "128"
-// },
-// {
-//     riotName: "Nathaniel",
-//     riotTag: "NA1",
-//     region: "NA",
-//     rank: "Master",
-//     lp: "93",
-//     profileIconId: "577",
-//     wins: "139",
-//     losses: "128"
-// }];
-
-// let summonerListHtml = '';
-// let testItems = ['6657', '3020', '3157'];
-// let testSkillOrder = ['E', 'Q', 'W'];
-// let runes = [
-//     8112,
-//     8126,
-//     8138,
-//     8105,
-//     8014,
-//     8009,
-//     5005,
-//     5008,
-//     5002
-// ]
-
-// summoners.forEach(summoner => {
-//     summonerListHtml += '<div class="flex-row summoner-card">';
-//     summonerListHtml += '<div class="flex-row"><img class="med-img" src="img/profileIcon/' + summoner.profileIconId + '.png"/>';
-//     summonerListHtml += '<div class="summoner-name">&nbsp;&nbsp;' + summoner.riotName + '<span class="riot-tag">#' + summoner.riotTag + '</span></div></div>';
-
-//     summonerListHtml += '<div>' + summoner.rank + ' ' + summoner.lp + '</div>';
-//     summonerListHtml += '<img class="med-img" src="img/lanes/middle.png"/>';
-
-//     summonerListHtml += '<div class="flex-row">';
-//     testItems.forEach(item => {
-//         summonerListHtml += '<div class="item-img"><img src="img/item/' + item + '.png"/>';
-//         let itemInfo = itemsJson.data[item];
-//         summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + itemInfo.name + '</span><hr/>' + itemInfo.description + '</div></div>'
-//     })
-//     summonerListHtml += '</div>';
-
-//     summonerListHtml += '<div class="flex-row">';
-//     testSkillOrder.forEach((skill, id) => {
-//         summonerListHtml += '<div class="img-container"><span class="skill">' + skill + '</span><img src="img/spell/' + skill + '.png"/>' + (id == 2 ? '' : '<span class="full-height">&#8594;</span>') + '</div>';
-//     })
-//     summonerListHtml += '</div>';
-
-//     /* Runes */
-//     summonerListHtml += '<div class="flex-row">';
-
-//     summonerListHtml += '<div class="rune main-rune"><img class="rune-img" src="' + runesJson.find(r => r.id == runes[0]).iconPath.slice(1) + '"/>';
-//     summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + runesJson.find(r => r.id == runes[0]).name + '</span><hr/>' + runesJson.find(r => r.id == runes[0]).longDesc + '</div></div>';
-
-//     summonerListHtml += '<div class="flex-column">'
-//     summonerListHtml += '<div class="flex-row">'
-//     summonerListHtml += '<div class="rune"><img class="rune-img" src="' + runesJson.find(r => r.id == runes[1]).iconPath.slice(1) + '"/>';
-//     summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + runesJson.find(r => r.id == runes[1]).name + '</span><hr/>' + runesJson.find(r => r.id == runes[1]).longDesc + '</div></div>';
-//     summonerListHtml += '<div class="rune"><img class="rune-img" src="' + runesJson.find(r => r.id == runes[2]).iconPath.slice(1) + '"/>';
-//     summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + runesJson.find(r => r.id == runes[2]).name + '</span><hr/>' + runesJson.find(r => r.id == runes[2]).longDesc + '</div></div>';
-//     summonerListHtml += '<div class="rune"><img class="rune-img" src="' + runesJson.find(r => r.id == runes[3]).iconPath.slice(1) + '"/>';
-//     summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + runesJson.find(r => r.id == runes[3]).name + '</span><hr/>' + runesJson.find(r => r.id == runes[3]).longDesc + '</div></div>';
-//     summonerListHtml += '</div>'
-
-//     summonerListHtml += '<div class="flex-row">'
-//     summonerListHtml += '<div class="rune"><img class="rune-img" src="' + runesJson.find(r => r.id == runes[4]).iconPath.slice(1) + '"/>';
-//     summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + runesJson.find(r => r.id == runes[4]).name + '</span><hr/>' + runesJson.find(r => r.id == runes[4]).longDesc + '</div></div>';
-//     summonerListHtml += '<div class="rune"><img class="rune-img" src="' + runesJson.find(r => r.id == runes[5]).iconPath.slice(1) + '"/>';
-//     summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + runesJson.find(r => r.id == runes[5]).name + '</span><hr/>' + runesJson.find(r => r.id == runes[5]).longDesc + '</div></div>';
-//     summonerListHtml += '</div>'
-//     summonerListHtml += '</div>'
-
-//     summonerListHtml += '<div class="flex-column">'
-//     summonerListHtml += '<div class="rune stat-mod"><img class="rune-img" src="' + runesJson.find(r => r.id == runes[6]).iconPath.slice(1) + '"/>';
-//     summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + runesJson.find(r => r.id == runes[6]).name + '</span><hr/>' + runesJson.find(r => r.id == runes[6]).longDesc + '</div></div>';
-//     summonerListHtml += '<div class="rune stat-mod"><img class="rune-img" src="' + runesJson.find(r => r.id == runes[7]).iconPath.slice(1) + '"/>';
-//     summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + runesJson.find(r => r.id == runes[7]).name + '</span><hr/>' + runesJson.find(r => r.id == runes[7]).longDesc + '</div></div>';
-//     summonerListHtml += '<div class="rune stat-mod"><img class="rune-img" src="' + runesJson.find(r => r.id == runes[8]).iconPath.slice(1) + '"/>';
-//     summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + runesJson.find(r => r.id == runes[8]).name + '</span><hr/>' + runesJson.find(r => r.id == runes[8]).longDesc + '</div></div>';
-//     summonerListHtml += '</div>';
-//     summonerListHtml += '</div></div><hr/>';
-// })
-
-// document.getElementById('players-list').innerHTML = summonerListHtml;
-
-
-
-// /* Runes - All */
-
-// console.log({ runeJson: runesJson });
-// const runeElement = document.getElementById('rune-page');
-// runesJson.forEach(type => {
-//     runeElement.innerHTML += '<div>' + type.name + '</div>';
-//     type.slots.forEach(row => {
-//         let rowHtml = '<div>';
-//         row.runes.forEach((rune, id) => {
-//             let active = Math.random() <= .25 ? 'active' : '';
-//             rowHtml += '<div class="rune"><img class="rune-img ' + active + '" src="img/' + rune.icon + '"/>';
-//             rowHtml += '<div class="tooltiptext"><span class="rune-title">' + rune.name + '</span><hr/>' + rune.longDesc + '</div></div>'
-//         })
-//         rowHtml += '</div>';
-//         runeElement.innerHTML += rowHtml;
-//     })
-// })

@@ -393,6 +393,7 @@ body {
 .items {
     width: 165px;
     flex-wrap: wrap;
+    height: 76px;
 }
 
 #players-list .main-rune img {
@@ -407,7 +408,8 @@ body {
     border: 1px solid black;
 }
 
-.flex-row.items {
+.flex-row.items,
+.flex-row.boots {
     align-content: center;
     justify-content: center;
 }
@@ -844,6 +846,7 @@ header img {
 
     .items {
         width: 118px;
+        height: 72px;
     }
 
     .runes {
