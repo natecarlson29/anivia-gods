@@ -216,8 +216,9 @@ function finalPlayerStats(summoners) {
             });
         });
         summoner.boots = calculatePercentage(boots);
-        // console.log({ Boots: summoner.boots });
-        // console.log({ NewItem: summoner.items });
+
+        //Winrate
+        summoner.winrate = Math.round((summoner.wins / (summoner.wins + summoner.losses)) * 100);
 
         //Item Sets
         // summoner.items.forEach(itemArray => {
@@ -276,7 +277,7 @@ function createPlayerList(summoners) {
 
         /* Summoner Name */
         summonerListHtml += '<div class="flex-column"><div class="summoner-name">' + summoner.summonerName + '<span class="riot-tag">#' + summoner.riotTag + '</span></div>';
-        summonerListHtml += '<div class="summoner-region"><span class="wins">' + summoner.wins + '</span> - <span class="losses">' + summoner.losses + '</span><br/>' + summoner.region + '</div></div></div>';
+        summonerListHtml += '<div class="summoner-region"><span class="wins">' + summoner.wins + '</span>-<span class="losses">' + summoner.losses + '</span> (<span' + (summoner.winrate > 54 ? ' class="high-wr"' : '') + '>' + summoner.winrate + '%</span>)<br/>' + summoner.region + '</div></div></div>';
 
         /* Rank */
         summonerListHtml += '<div class="tier"><img class="large-img" src="img/tier/' + summoner.tier + '.png"/>' + summoner.leaguePoints + ' LP</div>';
@@ -475,8 +476,8 @@ function fetchSummoners() {
     document.getElementById('players-list').innerHTML = '<div><div class="loader">' + spinner + '</div><h2>Fetching Players<span class="loading-dots"></span></h2></div>';
 
 
-    // const apiUrl = `http://localhost:3000/summoners`;
-    const apiUrl = 'https://getsummoners.azurewebsites.net/api/HttpTrigger1?code=pwBP6CP0m7dXL-Jr5z355I0O9XN3mHvsTy3MJUiMwXvwAzFu8PeHcw==';
+    const apiUrl = `http://localhost:3000/summoners`;
+    // const apiUrl = 'https://getsummoners.azurewebsites.net/api/HttpTrigger1?code=pwBP6CP0m7dXL-Jr5z355I0O9XN3mHvsTy3MJUiMwXvwAzFu8PeHcw==';
     fetch(apiUrl)
         .then(response => response.json())
         .then(data => {

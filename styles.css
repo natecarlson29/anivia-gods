@@ -858,11 +858,15 @@ header img {
 }
 
 .wins {
-    color: rgb(18, 211, 0);
+    color: rgb(130, 212, 123);
 }
 
 .losses {
-    color: rgb(226, 46, 46);
+    color: rgb(218, 119, 119);
+}
+
+.high-wr {
+    color: rgb(238, 64, 64);
 }
 
 /* Media Queries */
