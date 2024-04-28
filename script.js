@@ -103,10 +103,12 @@ function convertTimestampToMinutesAndSeconds(timestamp) {
     return formattedTime;
 }
 
-function findMostCommonValue(array) {
+function findMostCommonValue(array, existingItems) {
     const occurrences = {};
     array.forEach(value => {
-        occurrences[value] = (occurrences[value] || 0) + 1;
+        if (!existingItems.includes(value)) {
+            occurrences[value] = (occurrences[value] || 0) + 1;
+        }
     });
     let mostCommonValue = null;
     let highestCount = 0;
@@ -219,12 +221,6 @@ function finalPlayerStats(summoners) {
 
         //Winrate
         summoner.winrate = Math.round((summoner.wins / (summoner.wins + summoner.losses)) * 100);
-
-        //Item Sets
-        // summoner.items.forEach(itemArray => {
-        //     let item = findMostCommonValue(itemArray);
-        //     let itemInfo = itemsJson.find(x => x.id == item);
-        // })
     })
 
     return summoners;
@@ -353,8 +349,10 @@ function createPlayerList(summoners) {
         summonerListHtml += '<div class="flex-column most-used-runes">';
         summonerListHtml += '<div class="dropdown-title">Most Common Build</div>';
         summonerListHtml += '<div class="flex-row items">';
+        let itemsFound = [];
         summoner.items.forEach(itemArray => {
-            let item = findMostCommonValue(itemArray);
+            let item = findMostCommonValue(itemArray, itemsFound);
+            itemsFound.push(item);
             let itemInfo = itemsJson.find(x => x.id == item);
             if (itemInfo) {
                 if (summoner.items.indexOf(itemArray) != 0) {
@@ -476,8 +474,8 @@ function fetchSummoners() {
     document.getElementById('players-list').innerHTML = '<div><div class="loader">' + spinner + '</div><h2>Fetching Players<span class="loading-dots"></span></h2></div>';
 
 
-    const apiUrl = `http://localhost:3000/summoners`;
-    // const apiUrl = 'https://getsummoners.azurewebsites.net/api/HttpTrigger1?code=pwBP6CP0m7dXL-Jr5z355I0O9XN3mHvsTy3MJUiMwXvwAzFu8PeHcw==';
+    // const apiUrl = `http://localhost:3000/summoners`;
+    const apiUrl = 'https://getsummoners.azurewebsites.net/api/HttpTrigger1?code=pwBP6CP0m7dXL-Jr5z355I0O9XN3mHvsTy3MJUiMwXvwAzFu8PeHcw==';
     fetch(apiUrl)
         .then(response => response.json())
         .then(data => {
