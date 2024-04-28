@@ -29,12 +29,11 @@
                     onclick="toggleBlizzard()">[R] to Toggle Ult</span>
                 <br /><br />
 
-                Here you will find a compiled list of the best anivia players
-                accross NA,
-                EUW, and KR. <b><i>All data and stats shown are from the last 4 weeks,</i></b> this ensures that all
+                Here you will find a compiled list of the best Anivia solo queue players in League of Legends. <b><i>All
+                        data and stats shown are from the last 30 days,</i></b> this ensures that all
                 winrates
                 and playstyles are
-                the most recent that exist. My goal is to have an easily accessible easily digestable way to see the
+                the up to date. My goal is to have an easily accessible and digestable way to see the
                 current
                 strategies
                 accross top anivia mains in the world. <br /><br />
@@ -76,6 +75,38 @@
             </svg>
         </div>
     </div>
+    <div class="filter-container">
+        <div class="filter-column">
+            <div style="padding: 10px 0px;"><b>Servers:</b></div>
+            <div class="checkbox">
+                <input id="NA" type="checkbox" checked />
+                <label for="NA">NA</label>
+            </div>
+            <div class="checkbox">
+                <input id="EUW" type="checkbox" checked />
+                <label for="EUW">EUW</label>
+            </div>
+            <div class="checkbox">
+                <input id="KR" type="checkbox" checked />
+                <label for="KR">KR</label>
+            </div>
+        </div>
+        <div style="width: 25px;"></div>
+        <!-- <div>Role</div> -->
+        <div class="filter-column">
+            <div style="padding: 10px 0px;"><b>Sorted By:</b></div>
+            <div class="radio">
+                <input type="radio" id="lp" name="option" value="lp" checked>
+                <label for="lp">LP</label>
+            </div>
+            <div class="radio">
+                <input type="radio" id="winrate" name="option" value="winrate">
+                <label for="winrate">Winrate</label>
+            </div>
+        </div>
+    </div>
+    <div class="players-loaded"><b><span id="player-count">0</span></b> Anivia players found</div>
+
     <div id="players-list" class="flex-column"></div>
     <!-- <div class="game">
         <div class="row-1">
