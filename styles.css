@@ -75,7 +75,7 @@ body {
 }
 
 #date-ran {
-    font-size: 18px;
+    font-size: 14px;
     position: fixed;
     bottom: 0;
     right: 0;
@@ -83,6 +83,8 @@ body {
     border-top-left-radius: 15px;
     color: black;
     padding: 5px;
+    padding-left: 10px;
+    padding-right: 7px;
     user-select: none;
 
 }
