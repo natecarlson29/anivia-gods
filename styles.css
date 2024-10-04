@@ -74,6 +74,19 @@ body {
     margin-top: -10px;
 }
 
+#date-ran {
+    font-size: 18px;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    background-color: #9c9c9c;
+    border-top-left-radius: 15px;
+    color: black;
+    padding: 5px;
+    user-select: none;
+
+}
+
 label {
     user-select: none;
 }
