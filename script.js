@@ -474,8 +474,8 @@ function fetchSummoners() {
     document.getElementById('players-list').innerHTML = '<div><div class="loader">' + spinner + '</div><h2>Fetching Players<span class="loading-dots"></span></h2></div>';
 
 
-    const apiUrl = `http://localhost:3000/summoners`;
-    // const apiUrl = 'https://getsummoners.azurewebsites.net/api/HttpTrigger1?code=pwBP6CP0m7dXL-Jr5z355I0O9XN3mHvsTy3MJUiMwXvwAzFu8PeHcw==';
+    // const apiUrl = `http://localhost:3000/summoners`;
+    const apiUrl = 'https://getsummoners.azurewebsites.net/api/HttpTrigger1?code=pwBP6CP0m7dXL-Jr5z355I0O9XN3mHvsTy3MJUiMwXvwAzFu8PeHcw==';
     fetch(apiUrl)
         .then(response => response.json())
         .then(data => {
