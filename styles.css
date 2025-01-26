@@ -887,6 +887,11 @@ h1 {
     color: rgb(238, 64, 64);
 }
 
+iframe {
+    height: 378px;
+    width: 620px;
+}
+
 /* Media Queries */
 
 @media screen and (max-width: 896px) {
@@ -916,8 +921,11 @@ h1 {
         margin-right: 20px !important
     }
 
-    .header h1 {
+    h1 {
         font-size: 2rem;
+    }
+
+    .header h1 {
         margin-right: -250px;
         margin-top: 200px;
     }
@@ -975,6 +983,11 @@ h1 {
         width: 72px;
         height: 72px;
         margin-top: -2px;
+    }
+
+    iframe {
+        height: 189px;
+        width: 310px;
     }
 
     .summoner-name {
