@@ -857,19 +857,22 @@ header img {
     transition: height .5s, width .5s;
 }
 
-.header h1 {
+h1 {
     font-family: 'Dhurjati', sans-serif;
     color: rgb(14, 233, 233);
     margin: 0px;
     font-size: 4rem;
-    margin-right: -300px;
-    margin-top: 300px;
     z-index: 2;
     text-shadow:
         -1px -1px 0 blue,
         1px -1px 0 blue,
         -1px 1px 0 blue,
         1px 1px 0 blue;
+}
+
+.header h1 {
+    margin-right: -300px;
+    margin-top: 300px;
 }
 
 .wins {
