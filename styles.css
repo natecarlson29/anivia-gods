@@ -868,6 +868,7 @@ h1 {
         1px -1px 0 blue,
         -1px 1px 0 blue,
         1px 1px 0 blue;
+    text-align: center;
 }
 
 .header h1 {
