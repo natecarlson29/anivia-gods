@@ -180,6 +180,9 @@ function dropdownCard(clickedCard) {
 /* Summoners */
 
 function customSort(obj1, obj2) {
+    if (obj1.summonerName === 'Nathaniel') return -1;
+    if (obj2.summonerName === 'Nathaniel') return 1;
+
     if (obj1.tier === 'd1' && obj2.tier === 'd1') {
         return obj2.leaguePoints - obj1.leaguePoints;
     } else if (obj1.tier === 'd1') {
@@ -192,6 +195,9 @@ function customSort(obj1, obj2) {
 }
 
 function winrateSort(obj1, obj2) {
+    if (obj1.summonerName === 'Nathaniel') return -1;
+    if (obj2.summonerName === 'Nathaniel') return 1;
+
     const winrate1 = obj1.wins / obj1.losses;
     const winrate2 = obj2.wins / obj2.losses;
     if (winrate1 < winrate2) {
@@ -259,6 +265,10 @@ function createPlayerList(summoners) {
 
     summoners.forEach(summoner => {
         summonerListHtml += '<div class="flex-row summoner-card" onclick="dropdownCard(this)">';
+
+        if (summoner.summonerName === 'Nathaniel') {
+            summonerListHtml += '<div>Me (the site creator) &#128526;</div>';
+        }
 
         summonerListHtml += '<div class="flex-row">';
 
