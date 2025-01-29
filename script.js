@@ -266,14 +266,14 @@ function createPlayerList(summoners) {
     summoners.forEach(summoner => {
         summonerListHtml += '<div class="flex-row summoner-card" onclick="dropdownCard(this)">';
 
-        if (summoner.summonerName === 'Nathaniel') {
-            summonerListHtml += '<div>Me (the site creator) &#128526;</div>';
-        }
-
         summonerListHtml += '<div class="flex-row">';
 
         /* Dropdown Arrow */
         summonerListHtml += '<svg class="side-arrow" fill="#000000" width="64px" height="64px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M15.146 12.354l-5.792 5.792a.5.5 0 01-.854-.353V6.207a.5.5 0 01.854-.353l5.792 5.792a.5.5 0 010 .708z"/></svg>';
+
+        if (summoner.summonerName === 'Nathaniel') {
+            summonerListHtml += '<div class="summonerName">ME! &#128526;</div>';
+        }
 
         /* Profile Image */
         summonerListHtml += '<img onerror=profPicError(this) class="med-img" src="https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/profile-icons/' + summoner.profileIconId + '.jpg"/>';
