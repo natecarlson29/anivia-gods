@@ -253,6 +253,12 @@ function createPlayerList(summoners) {
         }
     });
 
+    //Filter to selected roles
+    const selectedRole = document.getElementById('role-dropdown').value;
+    if (selectedRole !== 'ALL') {
+        summoners = summoners.filter(obj => obj.role === selectedRole);
+    }
+
     let playerCountSpan = document.getElementById('player-count');
     playerCountSpan.textContent = summoners.length;
 

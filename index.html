@@ -107,7 +107,6 @@
             </div>
         </div>
         <div style="width: 25px;"></div>
-        <!-- <div>Role</div> -->
         <div class="filter-column">
             <div style="padding: 10px 0px;"><b>Sorted By:</b></div>
             <div class="radio">
@@ -118,6 +117,19 @@
                 <input type="radio" id="winrate" name="option" value="winrate">
                 <label for="winrate">Winrate</label>
             </div>
+        </div>
+    </div>
+    <div class="filter-container">
+        <div class="filter-column" style="display: flex; align-items: center; justify-content: center; padding: 5px;">
+            <div style="padding: 10px 0px;"><b>Role:</b></div>
+            <select id="role-dropdown">
+                <option value="ALL" selected>All Roles</option>
+                <option value="TOP">Top</option>
+                <option value="JUNGLE">Jungle</option>
+                <option value="MIDDLE">Mid</option>
+                <option value="BOTTOM">Bottom</option>
+                <option value="UTILITY">Utility</option>
+            </select>
         </div>
     </div>
     <div class="players-loaded"><b><span id="player-count">0</span></b> Anivia players found</div>

@@ -47,7 +47,7 @@ body {
     display: flex;
     align-content: center;
     justify-content: center;
-    width: 350px;
+    width: 450px;
     margin: auto;
 }
 
@@ -60,6 +60,7 @@ body {
     margin: 15px;
     padding: 5px 5px 5px 20px;
     width: 100px;
+    border-radius: 5px;
 }
 
 .spacer {
@@ -1057,6 +1058,10 @@ iframe {
 
     #players-list {
         overflow: hidden;
+    }
+
+    .filter-container {
+        width: 350px;
     }
 }
 
