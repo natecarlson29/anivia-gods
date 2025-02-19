@@ -180,8 +180,6 @@ function dropdownCard(clickedCard) {
 /* Summoners */
 
 function customSort(obj1, obj2) {
-    if (obj1.summonerName === 'Nathaniel') return -1;
-    if (obj2.summonerName === 'Nathaniel') return 1;
 
     if (obj1.tier === 'd1' && obj2.tier === 'd1') {
         return obj2.leaguePoints - obj1.leaguePoints;
@@ -195,9 +193,6 @@ function customSort(obj1, obj2) {
 }
 
 function winrateSort(obj1, obj2) {
-    if (obj1.summonerName === 'Nathaniel') return -1;
-    if (obj2.summonerName === 'Nathaniel') return 1;
-
     const winrate1 = obj1.wins / obj1.losses;
     const winrate2 = obj2.wins / obj2.losses;
     if (winrate1 < winrate2) {
@@ -270,10 +265,6 @@ function createPlayerList(summoners) {
 
         /* Dropdown Arrow */
         summonerListHtml += '<svg class="side-arrow" fill="#000000" width="64px" height="64px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M15.146 12.354l-5.792 5.792a.5.5 0 01-.854-.353V6.207a.5.5 0 01.854-.353l5.792 5.792a.5.5 0 010 .708z"/></svg>';
-
-        if (summoner.summonerName === 'Nathaniel') {
-            summonerListHtml += '<div class="summonerName"><b></b></div>';
-        }
 
         /* Profile Image */
         summonerListHtml += '<img onerror=profPicError(this) class="med-img" src="https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/profile-icons/' + summoner.profileIconId + '.jpg"/>';
