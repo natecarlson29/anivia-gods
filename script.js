@@ -228,6 +228,7 @@ function finalPlayerStats(summoners) {
 }
 
 function createPlayerList(summoners) {
+    console.log('hit');
 
     console.log({ Summoners: summoners });
     summoners = summoners.filter(x => x.wins > 3);
@@ -514,6 +515,12 @@ document.querySelectorAll('input[name="option"]').forEach(function (radio) {
     radio.addEventListener('change', function () {
         createPlayerList(allSummonerData);
     });
+});
+
+// Even listener drop down
+const roleDropdown = document.getElementById('role-dropdown');
+roleDropdown.addEventListener('change', () => {
+    createPlayerList(allSummonerData);
 });
 
 fetchSummoners();
