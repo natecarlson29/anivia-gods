@@ -72,10 +72,10 @@ function getCDNImageUrl(path) {
             return `img/summoner-spells/${spellFileName}`;
         }
 
-        // Fix for item iconPath from CDragon (lowercase filename)
+        // Fix for item iconPath from CDragon (map to correct path and lowercase)
         if (path.startsWith('/lol-game-data/assets/ASSETS/Items/Icons2D/')) {
-            const fileName = path.split('/').pop().toLowerCase();
-            return `https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/items/icons2d/${fileName}`;
+            const assetSubPath = path.replace('/lol-game-data/assets/', '').toLowerCase();
+            return `https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/${assetSubPath}`;
         }
 
         // Default: append path as-is
