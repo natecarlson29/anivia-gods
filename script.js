@@ -72,6 +72,12 @@ function getCDNImageUrl(path) {
             return `img/summoner-spells/${spellFileName}`;
         }
 
+        // Fix for item iconPath from CDragon
+        if (path.startsWith('/lol-game-data/assets/ASSETS/Items/Icons2D/')) {
+            const fileName = path.split('/').pop();
+            return `https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/items/icons2d/${fileName}`;
+        }
+
         // Default: append path as-is
         return 'https://raw.communitydragon.org/latest' + path;
     }
