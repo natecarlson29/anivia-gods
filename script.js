@@ -55,10 +55,10 @@ function getCDNImageUrl(path) {
         return path;
     }
 
-    // If it starts with /, it's an iconPath from the API - append to Community Dragon base
+    // If it starts with /, it's an iconPath from the API - use it directly without lowercasing
+    // Community Dragon paths are case-sensitive!
     if (path.startsWith('/')) {
-        // Use the iconPath directly from the JSON API response
-        return 'https://raw.communitydragon.org/latest' + path.toLowerCase();
+        return 'https://raw.communitydragon.org/latest' + path;
     }
 
     // Convert local paths to CDN paths
@@ -70,14 +70,14 @@ function getCDNImageUrl(path) {
 
     if (path.startsWith('img/lanes/')) {
         const role = path.replace('img/lanes/', '').replace('.png', '');
-        // Community Dragon position icons
-        return `https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-clash/global/default/assets/images/position-selector/positions/icon-position-${role.toLowerCase()}.png`;
+        // Community Dragon position icons - try different paths
+        return `https://ddragon.leagueoflegends.com/cdn/14.1.1/img/position/${role.toLowerCase()}.png`;
     }
 
     if (path.startsWith('img/tier/')) {
         const tier = path.replace('img/tier/', '').replace('.png', '');
-        // Community Dragon ranked emblems
-        return `https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-shared-components/global/default/ranked-emblem-${tier.toLowerCase()}.png`;
+        // Use Data Dragon for ranked emblems
+        return `https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-shared-components/global/default/${tier.toLowerCase()}.png`;
     }
 
     // Fallback for profile icons
