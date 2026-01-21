@@ -50,24 +50,22 @@ var allSummonerData = [];
 
 // Helper function to convert local paths or iconPaths to Community Dragon CDN URLs
 function getCDNImageUrl(path) {
-    const cdnBase = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default';
-
     // If it's already a CDN URL, return as is
     if (path.startsWith('http')) {
         return path;
     }
 
-    // If it starts with /, it's an iconPath from the API - use it directly
+    // If it starts with /, it's an iconPath from the API - append to Community Dragon base
     if (path.startsWith('/')) {
-        // The path already has the correct structure from the API
-        return cdnBase + path;
+        // Use the iconPath directly from the JSON API response
+        return 'https://raw.communitydragon.org/latest' + path.toLowerCase();
     }
 
     // Convert local paths to CDN paths
     if (path.startsWith('img/item/')) {
         const itemId = path.replace('img/item/', '').replace('.png', '');
-        // Community Dragon items path structure
-        return `https://raw.communitydragon.org/latest/game/assets/items/icons2d/${itemId.toLowerCase()}.png`;
+        // Fallback to Data Dragon if no full filename available
+        return `https://ddragon.leagueoflegends.com/cdn/14.1.1/img/item/${itemId}.png`;
     }
 
     if (path.startsWith('img/lanes/')) {
