@@ -67,8 +67,8 @@ function getCDNImageUrl(path) {
 
         // Transform summoner spell paths: /lol-game-data/assets/.../Spells/Icons2D/... -> /plugins/rcp-be-lol-game-data/global/default/v1/summoner-spells/...
         if (path.includes('/Spells/Icons2D/')) {
-            // Spells are also lowercase on CDragon
-            const spellFileName = path.split('/').pop().toLowerCase();
+            // Use original casing from iconPath; CDragon spell files are case-sensitive
+            const spellFileName = path.split('/').pop();
             return `https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/summoner-spells/${spellFileName}`;
         }
 
@@ -85,8 +85,26 @@ function getCDNImageUrl(path) {
 
     if (path.startsWith('img/lanes/')) {
         const role = path.replace('img/lanes/', '').replace('.png', '');
-        // Use Data Dragon for position icons (lowercase filenames)
-        return `https://ddragon.leagueoflegends.com/cdn/14.1.1/img/position/${role.toLowerCase()}.png`;
+        // Normalize role names to CDragon position assets
+        const normalizedRole = role.toLowerCase();
+        const roleMap = {
+            top: 'top',
+            toplane: 'top',
+            jungle: 'jungle',
+            jg: 'jungle',
+            mid: 'middle',
+            middle: 'middle',
+            bot: 'bottom',
+            bottom: 'bottom',
+            adc: 'bottom',
+            carry: 'bottom',
+            support: 'support',
+            sup: 'support',
+            utility: 'support'
+        };
+        const mappedRole = roleMap[normalizedRole] || normalizedRole;
+        // CDragon static assets for lane icons
+        return `https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-static-assets/global/default/images/position/position_${mappedRole}.png`;
     }
 
     if (path.startsWith('img/tier/')) {
