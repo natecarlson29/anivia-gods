@@ -212,7 +212,7 @@ function finalPlayerStats(summoners) {
             itemSet.forEach(item => {
                 if (item != 0 && item != 1001) {
                     let itemInfo = itemsJson.find(x => x.id == item);
-                    if (itemInfo.categories && itemInfo.categories.includes('Boots')) {
+                    if (itemInfo && itemInfo.categories && itemInfo.categories.includes('Boots')) {
                         boots.push(item);
                     }
                 }
