@@ -464,7 +464,7 @@ function createPlayerList(summoners) {
                 if (summoner.items.indexOf(itemArray) != 0) {
                     summonerListHtml += '<div>></div>';
                 }
-                summonerListHtml += '<div class="item-img"><img src="' + getCDNImageUrl('img/item/' + item + '.png') + '"/>';
+                summonerListHtml += '<div class="item-img"><img src="' + getCDNImageUrl(itemInfo.iconPath) + '"/>';
                 summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + itemInfo.name + '</span><hr/>' + itemInfo.description + '</div>'
                 summonerListHtml += '</div>';
                 // console.log({ IndexOf: summoner.items.indexOf(itemArray) });
@@ -486,7 +486,7 @@ function createPlayerList(summoners) {
         summonerListHtml += '<div class="flex-row boots">';
         for (const [key, value] of Object.entries(summoner.boots)) {
             let itemInfo = itemsJson.find(x => x.id == key);
-            summonerListHtml += `<div class="item-img"><img src="${getCDNImageUrl('img/item/' + key + '.png')}"/>`;
+            summonerListHtml += `<div class="item-img"><img src="${getCDNImageUrl(itemInfo.iconPath)}"/>`;
             summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + itemInfo.name + '</span><hr/>' + itemInfo.description + `</div><div style="text-align: center;"><b>${value}%</b></div></div><div class="spacer"></div>`;
         }
         summonerListHtml += '</div></div>';
@@ -505,7 +505,7 @@ function createPlayerList(summoners) {
         /* All Runes */
         summonerListHtml += '<div class="timeline-item flex-row">';
         summonerListHtml += '<div class="dropdown-title">All Runes</div>';
-        // combinedRunes = combinedRunes.sort((a, b) => (b.wins / b.losses) - (a.wins / b.losses));
+        // combinedRunes = combinedRunes.sort((a, b) => (b.wins / b.losses) - (a.wins / a.losses));
         for (const runeSet in combinedRunes) {
             /* Runes */
             let classes = combinedRunes[runeSet].wins > combinedRunes[runeSet].losses ? "flex-row runes winner" : "flex-row runes loser";
@@ -553,7 +553,7 @@ function createPlayerList(summoners) {
             e.forEach(item => {
                 let itemInfo = itemsJson.find(x => x.id == item.itemId);
                 if (itemInfo) {
-                    summonerListHtml += '<div class="item-img"><img class="item-img" src="' + getCDNImageUrl('img/item/' + item.itemId + '.png') + '"/>';
+                    summonerListHtml += '<div class="item-img"><img class="item-img" src="' + getCDNImageUrl(itemInfo.iconPath) + '"/>';
                     summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + itemInfo.name + '</span><hr/>' + itemInfo.description + '</div></div>';
                 } else {
                     console.log({ ItemInfo: item.itemId });
