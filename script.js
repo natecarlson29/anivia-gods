@@ -55,9 +55,22 @@ function getCDNImageUrl(path) {
         return path;
     }
 
-    // If it starts with /, it's an iconPath from the API - use it directly without lowercasing
-    // Community Dragon paths are case-sensitive!
+    // If it starts with /, it's an iconPath from the API
+    // Transform Community Dragon paths to correct structure
     if (path.startsWith('/')) {
+        // Transform rune/perk paths: /lol-game-data/assets/v1/perk-images/... -> /plugins/rcp-be-lol-game-data/global/default/v1/perk-images/...
+        if (path.includes('/perk-images/')) {
+            const runeSubPath = path.split('/perk-images/')[1];
+            return `https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/${runeSubPath}`;
+        }
+
+        // Transform summoner spell paths: /lol-game-data/assets/.../Spells/Icons2D/... -> /plugins/rcp-be-lol-game-data/global/default/v1/summoner-spells/...
+        if (path.includes('/Spells/Icons2D/')) {
+            const spellFileName = path.split('/').pop();
+            return `https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/summoner-spells/${spellFileName}`;
+        }
+
+        // Default: append path as-is
         return 'https://raw.communitydragon.org/latest' + path;
     }
 
@@ -70,13 +83,13 @@ function getCDNImageUrl(path) {
 
     if (path.startsWith('img/lanes/')) {
         const role = path.replace('img/lanes/', '').replace('.png', '');
-        // Community Dragon position icons - try different paths
-        return `https://ddragon.leagueoflegends.com/cdn/14.1.1/img/position/${role.toLowerCase()}.png`;
+        // Use Data Dragon for position icons
+        return `https://ddragon.leagueoflegends.com/cdn/14.1.1/img/position/${role}.png`;
     }
 
     if (path.startsWith('img/tier/')) {
         const tier = path.replace('img/tier/', '').replace('.png', '');
-        // Use Data Dragon for ranked emblems
+        // Use Community Dragon for ranked emblems
         return `https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-shared-components/global/default/${tier.toLowerCase()}.png`;
     }
 
