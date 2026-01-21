@@ -65,11 +65,11 @@ function getCDNImageUrl(path) {
             return `https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/${runeSubPath}`;
         }
 
-        // Transform summoner spell paths: /lol-game-data/assets/.../Spells/Icons2D/... -> /lol-game-data/assets/v1/summoner-spells/...
+        // Transform summoner spell paths: use local icons
         if (path.includes('/Spells/Icons2D/')) {
-            // Summoner spell images are in /lol-game-data/assets/v1/summoner-spells/
+            // Use local summoner spell images from img/summoner-spells/
             const spellFileName = path.split('/').pop();
-            return `https://raw.communitydragon.org/latest/lol-game-data/assets/v1/summoner-spells/${spellFileName}`;
+            return `img/summoner-spells/${spellFileName}`;
         }
 
         // Default: append path as-is
@@ -84,27 +84,8 @@ function getCDNImageUrl(path) {
     }
 
     if (path.startsWith('img/lanes/')) {
-        const role = path.replace('img/lanes/', '').replace('.png', '');
-        // Normalize role names to Data Dragon position naming
-        const normalizedRole = role.toLowerCase();
-        const roleMap = {
-            top: 'top',
-            toplane: 'top',
-            jungle: 'jungle',
-            jg: 'jungle',
-            mid: 'middle',
-            middle: 'middle',
-            bot: 'bottom',
-            bottom: 'bottom',
-            adc: 'bottom',
-            carry: 'bottom',
-            support: 'support',
-            sup: 'support',
-            utility: 'support'
-        };
-        const mappedRole = roleMap[normalizedRole] || normalizedRole;
-        // Use Data Dragon position icons (reliable source)
-        return `https://ddragon.leagueoflegends.com/cdn/14.1.1/img/position/${mappedRole}.png`;
+        // Use local role/lane images directly
+        return path;
     }
 
     if (path.startsWith('img/tier/')) {
