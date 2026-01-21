@@ -60,13 +60,15 @@ function getCDNImageUrl(path) {
     if (path.startsWith('/')) {
         // Transform rune/perk paths: /lol-game-data/assets/v1/perk-images/... -> /plugins/rcp-be-lol-game-data/global/default/v1/perk-images/...
         if (path.includes('/perk-images/')) {
-            const runeSubPath = path.split('/perk-images/')[1];
+            // CDragon stores perk images in lowercase paths
+            const runeSubPath = path.split('/perk-images/')[1].toLowerCase();
             return `https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/${runeSubPath}`;
         }
 
         // Transform summoner spell paths: /lol-game-data/assets/.../Spells/Icons2D/... -> /plugins/rcp-be-lol-game-data/global/default/v1/summoner-spells/...
         if (path.includes('/Spells/Icons2D/')) {
-            const spellFileName = path.split('/').pop();
+            // Spells are also lowercase on CDragon
+            const spellFileName = path.split('/').pop().toLowerCase();
             return `https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/summoner-spells/${spellFileName}`;
         }
 
@@ -83,8 +85,8 @@ function getCDNImageUrl(path) {
 
     if (path.startsWith('img/lanes/')) {
         const role = path.replace('img/lanes/', '').replace('.png', '');
-        // Use Data Dragon for position icons
-        return `https://ddragon.leagueoflegends.com/cdn/14.1.1/img/position/${role}.png`;
+        // Use Data Dragon for position icons (lowercase filenames)
+        return `https://ddragon.leagueoflegends.com/cdn/14.1.1/img/position/${role.toLowerCase()}.png`;
     }
 
     if (path.startsWith('img/tier/')) {
