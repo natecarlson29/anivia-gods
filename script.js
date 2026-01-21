@@ -389,9 +389,9 @@ function createPlayerList(summoners) {
         let summoner1 = summonerSpells.find(x => x.id == summoner.summoner1Id);
         let summoner2 = summonerSpells.find(x => x.id == summoner.summoner2Id);
         if (summoner1 && summoner2) {
-            summonerListHtml += '<div class="summoner-spell"><img src="' + getCDNImageUrl(summoner1.iconPath) + '"/>';
+            summonerListHtml += '<div class="summoner-spell"><img src="img/summoner-spells/' + summoner1.id + '.png"/>';
             summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + summoner1.name + '</span><hr/>' + summoner1.description + '</div></div>';
-            summonerListHtml += '<div class="summoner-spell"><img src="' + getCDNImageUrl(summoner2.iconPath) + '"/>';
+            summonerListHtml += '<div class="summoner-spell"><img src="img/summoner-spells/' + summoner2.id + '.png"/>';
             summonerListHtml += '<div class="tooltiptext"><span class="rune-title">' + summoner2.name + '</span><hr/>' + summoner2.description + '</div></div>';
         }
         summonerListHtml += '</div>'
